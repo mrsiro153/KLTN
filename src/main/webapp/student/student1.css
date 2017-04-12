@@ -1,0 +1,17 @@
+div.exam_content{
+	float: left;
+	width: 64%;
+}
+div.nofitication{
+	float: left;
+	width: 34%;
+	margin: 2px;
+}
+div.subject{
+	border: 2px green solid;
+	border-radius:15px;
+	margin: 2px;
+}
+div.detailsinfor{
+    background-color: rgba(76, 233, 255,0.2);
+}

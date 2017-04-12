@@ -1,0 +1,8 @@
+1. Ánh xạ database:
+	User-quyen
+	User-User_Dethi-Dethi
+	DeThi-DeThi_CauHoi-CauHoi
+	NoiDung-MonHoc
+	NoiDung-CauHoi
+	CauHoi-ChitietCauhoi
+	temporary - CauHoi --> hoàn thành việc ánh xạ database qua entity

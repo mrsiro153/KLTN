@@ -1,0 +1,70 @@
+.background_main{
+    background: url(hinhanh/anh2.jpg);
+    background-size: cover;
+    width: 98%;
+    height: 100%;
+}
+.login{
+	border-radius: 20px;
+	margin: auto;
+	margin-top: 50px;
+	background-color: rgba(233,252,252,0.8);
+	opacity: 0.9;
+	box-shadow: 10px 10px 5px grey;
+}
+h1.cl1{
+	font-family: 'Merriweather', serif;
+	color: blue;
+	text-align: center;	
+	text-shadow: 2px 2px #ffab00;
+	font-size: 50px;
+}
+button.forget{
+	margin-bottom: 20px;
+}
+div.mainpage_navbar{
+	background-color: #ffffff;
+}
+h1.mainpage_hcmute{
+	margin-left: 100px;
+	color: blue;
+	font-family: 'Lobster', cursive;
+	/*font-size: 30px;*/
+}
+h6.mainpage_hcmute{
+	margin-left: 250px;
+	color: blue;
+	font-family: 'Lobster', cursive;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #4040D9;
+}	
+li {
+	cursor: pointer;
+	float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 25px;
+    vertical-align: middle;
+    font-size:150%;
+}
+div#content{
+	background-color: rgba(233,252,252,0.8);
+	/*border-radius: 20px;*/
+}
+div.PerInfor{
+	border solid 2px black;
+}
+div.PerInfor img{
+	width: 200px;
+	height: 200px;
+}
+div.InformationUser{
+	border solid 2px black;
+	margin-left: 20px;
+}

@@ -1,0 +1,8 @@
+div.tablecontain{
+	margin-left:1%;
+	border: 1px blue solid;
+	margin-right: 1%;
+}
+nav a.tablink{
+	cursor: pointer;
+}

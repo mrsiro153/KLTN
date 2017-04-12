@@ -1,0 +1,19 @@
+div.exam_content{
+	border: 1px red solid;
+	display: inline-block;
+	width: 64%;
+}
+div.nofitication{
+	border: 1px blue solid;
+	display: inline-block;
+	width: 35%;
+}
+div.subject{
+	border: 2px green solid;
+	margin: 2px;
+}
+div.detailsinfor{
+	height: 200px;
+    width: 50%;
+    background-color: red;
+}
