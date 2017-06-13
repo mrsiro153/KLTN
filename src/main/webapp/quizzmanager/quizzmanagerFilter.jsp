@@ -1,7 +1,20 @@
-<%@page import="bankManager.GetAllQuizzs"%>
-<%@page import="java.sql.ResultSet"%>
+<%@page import="doan.quizzOnline.model.CauHoi"%>
+<%@page import="java.util.List"%>
+<%@page import="doan.quizzOnline.model.CauHoiDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+
+@Autowired
+CauHoiDAO cauHoiDAO;
+
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -42,9 +55,8 @@ background-image: url('http://www.w3schools.com/css/searchicon.png');
 		return;
 	}
 	//
-	GetAllQuizzs gs = new GetAllQuizzs();
-	ResultSet rs = gs.getAllQuizzs();
-	if(rs==null){
+	List<CauHoi> cauhois = cauHoiDAO.findAll();
+	if(cauhois.isEmpty()){
 		return;
 	}
 %>
@@ -73,22 +85,22 @@ background-image: url('http://www.w3schools.com/css/searchicon.png');
 				</thead>
 				<tbody>
 					<%
-						do {
+						for(CauHoi c:cauhois) {
 					%>					
 				<tr>
-					<td><%=rs.getString("idCauHoi")%></td>
-					<td><%=rs.getString("NoiDungCauHoi")%></td>
-					<td><%=rs.getString("DapAnDung")%></td>
-					<td><%=rs.getString("DapAnA")%></td>
-					<td><%=rs.getString("DapAnB")%></td>
-					<td><%=rs.getString("DapAnC")%></td>
-					<td><%=rs.getString("DapAnD")%></td>
-					<td><%=rs.getString("TenNoiDung") %></td>
-					<td style="display:none;"><%=rs.getString("idNoiDung") %></td>
+					<td><%=c.getIdCauHoi()%></td>
+					<td><%=c.getNoiDungCauHoi()%></td>
+					<td><%=c.getDapAnDung()%></td>
+					<td><%=c.getChiTietCauHoi().getDapAnA()%></td>
+					<td><%=c.getChiTietCauHoi().getDapAnB()%></td>
+					<td><%=c.getChiTietCauHoi().getDapAnC()%></td>
+					<td><%=c.getChiTietCauHoi().getDapAnD()%></td>
+					<td><%=c.getMaNoiDung().getTenNoiDung() %></td>
+					<td style="display:none;"><%=c.getMaNoiDung().getIdNoiDung() %></td>
 					<td><button class="btn btn-primary" data-toggle="modal" data-target="#modalContentQuizz" onclick="changeContentQuizz(this)">Edit</button></td>
 				</tr>			
 			<%
-							} while (rs.next());
+							};
 						%>
 			</tbody>			
 			</table>

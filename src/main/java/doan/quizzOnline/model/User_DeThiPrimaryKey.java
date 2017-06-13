@@ -17,7 +17,7 @@ public class User_DeThiPrimaryKey implements Serializable{
 	public Integer getMaDeThi() {
 		return maDeThi;
 	}
-	public void setMaDeThi(int maDeThi) {
+	public void setMaDeThi(Integer maDeThi) {
 		this.maDeThi = maDeThi;
 	}
 	//

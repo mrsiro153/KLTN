@@ -18,13 +18,13 @@ public class Quyen {
 	@Id
 	@NotEmpty
     @Column(name="idquyen", nullable=false)
-	int id;
+	Integer id;
 	
 	@Column(name="Tenquyen")
 	String tenQuyen;
 	//
 	//foreign key
-	@OneToMany(mappedBy="quyen",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="quyen")
 	Set<User> users;
 	//
 	public Set<User> getUsers() {
@@ -36,14 +36,14 @@ public class Quyen {
 	//
 	protected Quyen(){}
 	//
-	public Quyen(int idQuyen,String tenQuyen){
+	public Quyen(Integer idQuyen,String tenQuyen){
 		this.id=idQuyen;
 		this.tenQuyen=tenQuyen;
 	}
-	public int getIdQuyen() {
+	public Integer getIdQuyen() {
 		return id;
 	}
-	public void setIdQuyen(int idQuyen) {
+	public void setIdQuyen(Integer idQuyen) {
 		this.id= idQuyen;
 	}
 	public String getTenQuyen() {

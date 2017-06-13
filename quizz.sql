@@ -87,6 +87,7 @@ CREATE TABLE `dethi` (
   `NgayMoDeThi` date DEFAULT NULL,
   `GioMoDeThi` time DEFAULT NULL,
   `MaMonHoc` int(11) DEFAULT NULL,
+  `status` int(11) DEFAULT '0',
   PRIMARY KEY (`idDeThi`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -97,7 +98,7 @@ CREATE TABLE `dethi` (
 
 LOCK TABLES `dethi` WRITE;
 /*!40000 ALTER TABLE `dethi` DISABLE KEYS */;
-INSERT INTO `dethi` VALUES (1,'3600',5,'2016-12-10','12:00:00',1),(2,'1800',6,'2016-12-11','11:00:00',2),(3,'1800',5,'2016-12-15','16:00:00',2),(4,'1800',6,'2017-12-14','22:00:00',3),(5,'120',4,'2017-12-27','17:46:00',3),(6,'300',4,'2015-06-29','08:05:00',5),(7,'600',4,'2015-12-29','13:50:00',5),(8,'3000',5,'2017-02-07','00:00:00',4);
+INSERT INTO `dethi` VALUES (1,'3600',5,'2016-12-10','12:00:00',1,0),(2,'1800',6,'2016-12-11','11:00:00',2,0),(3,'1800',5,'2016-12-15','16:00:00',2,0),(4,'1800',6,'2017-12-14','22:00:00',3,0),(5,'120',4,'2017-12-27','17:46:00',3,0),(6,'300',4,'2015-06-29','08:05:00',5,1),(7,'600',4,'2015-12-29','13:50:00',5,1),(8,'3000',5,'2017-02-07','00:00:00',4,1);
 /*!40000 ALTER TABLE `dethi` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,6 +294,10 @@ INSERT INTO `user_dethi` VALUES ('sv1',1,2),('sv1',7,10);
 UNLOCK TABLES;
 
 --
+-- Dumping events for database 'quizz'
+--
+
+--
 -- Dumping routines for database 'quizz'
 --
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -305,4 +310,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-01-10 23:08:42
+-- Dump completed on 2017-06-12 14:53:06

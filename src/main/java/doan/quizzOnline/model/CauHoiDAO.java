@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 @Transactional
 @Repository
 public interface CauHoiDAO extends CrudRepository<CauHoi, Long> {
-	List<CauHoi> findByIdCauHoi(int idCauHoi);
+	CauHoi findByIdCauHoi(Integer idCauHoi);
 	List<CauHoi> findAll();
+	List<CauHoi> findByMaNoiDung(NoiDung maNoiDung);
 	
 }

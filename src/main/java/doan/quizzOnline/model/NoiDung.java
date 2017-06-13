@@ -2,7 +2,6 @@ package doan.quizzOnline.model;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,29 +19,29 @@ public class NoiDung {
 	@Id
 	@NotEmpty
     @Column(name="idnoidung", nullable=false)
-	int idNoiDung;
+	Integer idNoiDung;
 	//
 	@JoinColumn(name="idmonhoc")
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne()
 	MonHoc idMonHoc;
 	//
 	@Column(name="tennoidung")
 	String tenNoiDung;
 	//
-	@OneToMany(mappedBy="maNoiDung",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="maNoiDung")
 	Set<CauHoi> cauHois;
 	//
 	public NoiDung(){}
-	public NoiDung(int idNoiDung,MonHoc idMonHoc,String tenNoiDung){
+	public NoiDung(Integer idNoiDung,MonHoc idMonHoc,String tenNoiDung){
 		this.idNoiDung=idNoiDung;
 		this.idMonHoc=idMonHoc;
 		this.tenNoiDung=tenNoiDung;
 	}
 	//
-	public int getIdNoiDung() {
+	public Integer getIdNoiDung() {
 		return idNoiDung;
 	}
-	public void setIdNoiDung(int idNoiDung) {
+	public void setIdNoiDung(Integer idNoiDung) {
 		this.idNoiDung = idNoiDung;
 	}
 	public MonHoc getIdMonHoc() {

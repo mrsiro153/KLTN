@@ -1,13 +1,28 @@
-<%@page import="lecture.GetSubject"%>
-<%@page import="java.sql.ResultSet"%>
+<%@page import="doan.quizzOnline.model.DeThi"%>
+<%@page import="doan.quizzOnline.model.DeThiDAO"%>
+<%@page import="doan.quizzOnline.model.MonHoc"%>
+<%@page import="java.util.List"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="doan.quizzOnline.model.MonHocDAO"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+@Autowired
+MonHocDAO monHocDAO;
+
+@Autowired
+DeThiDAO deThiDAO;
+%>
 <link rel="stylesheet" type="text/css" href="lecture/lecture.css">
 <div class="lecturemain row">
 	<%
-	GetSubject gS= new GetSubject();
-	ResultSet rs= gS.getOnlySubjects(); 
-	if(rs==null){
+	List<MonHoc> rs = monHocDAO.findAll();
+	if(rs.isEmpty()){
 		return;
 	}
 	%>
@@ -20,12 +35,12 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% do{ %>
+				<% for(MonHoc m : rs){ %>
 				<tr>
-					<td><%=rs.getString("TenMonHoc") %></td>
-					<td style="display:none"><%=rs.getString("idMonHoc") %></td>
+					<td><%=m.getTenMonHoc() %></td>
+					<td style="display:none"><%=m.getIdMonHoc() %></td>
 				</tr>
-				<%}while(rs.next()); %>
+				<%} %>
 			</tbody>
 		</table>
 		<center>
@@ -50,24 +65,24 @@
 			</thead>
 			<tbody>
 			<%
-			ResultSet rs1 = gS.getAllSubjects();
-			if(rs1==null){
-				out.print("No Exam");
+			List<DeThi> rs1 = deThiDAO.findAll();
+			if(rs1.isEmpty()){
+				out.print("No Exam!");
 				return;
 			}
-			do{	%>	
+			for(DeThi d :rs1){	%>	
 				<tr>
-					<td><input name="idDeThi" readonly class="form-control" size="3" value="<%=rs1.getString("idDeThi")%>"></td>
+					<td><input name="idDeThi" readonly class="form-control" size="3" value="<%=d.getIdDeThi()%>"></td>
 					<td><input class="form-control" required type="number" size="5" name="TimeOut" value="<%
-					int x = Integer.parseInt(rs1.getString("ThoiLuong"));
+					int x = Integer.parseInt(d.getThoiLuong());
 					out.print(x/60);%>"></td>
-					<td><% if(rs1.getString("NgayMoDeThi")==null) out.print("Notyet Set"); else out.print(rs1.getString("NgayMoDeThi")); %></td>
-					<td><% if(rs1.getString("GioMoDeThi")==null) out.print("Notyet Set"); else out.print(rs1.getString("GioMoDeThi")); %></td>
-					<td><%=rs1.getString("TenMonHoc") %></td>
+					<td><% if(d.getNgayMoDeThi()==null) out.print("Notyet Set"); else out.print(d.getNgayMoDeThi()); %></td>
+					<td><% if(d.getGioMoDeThi()==null) out.print("Notyet Set"); else out.print(d.getGioMoDeThi()); %></td>
+					<td><% try{out.print(monHocDAO.findByidMonHoc(d.getMaMonHoc()).getTenMonHoc());}catch(Exception e){} %></td>
 					<td><button class="btn btn-danger" type="button" onclick="getThisExam(this)" 
 					data-toggle="modal" data-target="#DeleteExam">Delete</button></td>
 				</tr>
-			<% }while(rs1.next()); %>
+			<% } %>
 			</tbody>
 		</table>
 		<center><button class="btn btn-primary" type="submit">Save</button></center>

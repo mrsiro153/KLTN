@@ -18,24 +18,24 @@ public class MonHoc {
 	@Id
 	@NotEmpty
     @Column(name="idmonhoc", nullable=false)
-	int idMonHoc;
+	Integer idMonHoc;
 	//
 	@Column(name="tenmonhoc")
 	String tenMonHoc;
 	//
-	@OneToMany(mappedBy="idMonHoc",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="idMonHoc")
 	Set<NoiDung> noidungs;
 	//
 	public MonHoc(){}
-	public MonHoc(int idMonHoc,String tenMonHoc){
+	public MonHoc(Integer idMonHoc,String tenMonHoc){
 		this.idMonHoc=idMonHoc;
 		this.tenMonHoc=tenMonHoc;
 	}
 	//
-	public int getIdMonHoc() {
+	public Integer getIdMonHoc() {
 		return idMonHoc;
 	}
-	public void setIdMonHoc(int idMonHoc) {
+	public void setIdMonHoc(Integer idMonHoc) {
 		this.idMonHoc = idMonHoc;
 	}
 	public String getTenMonHoc() {

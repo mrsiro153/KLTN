@@ -1,7 +1,31 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="connectData.ConnectDatabase"%>
+<%@page import="doan.quizzOnline.model.MonHoc"%>
+<%@page import="java.util.List"%>
+<%@page import="doan.quizzOnline.model.User_DeThi"%>
+<%@page import="doan.quizzOnline.model.UserDAO"%>
+<%@page import="doan.quizzOnline.model.User_DeThiDAO"%>
+<%@page import="doan.quizzOnline.model.MonHocDAO"%>
+<%@page import="doan.quizzOnline.model.DeThiDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+@Autowired
+DeThiDAO deThiDAO;
+
+@Autowired
+MonHocDAO monHocDAO;
+
+@Autowired
+User_DeThiDAO user_DeThiDAO;
+
+@Autowired
+UserDAO userDAO;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -36,7 +60,6 @@
 			<h1>Exams score</h1>
 		</center>
 		<%
-			ConnectDatabase cn = new ConnectDatabase();
 			String s="";
 			if(session.getAttribute("user")!=null){
 				s= session.getAttribute("user").toString();
@@ -44,14 +67,13 @@
 				out.print("<script>alert('please login first!')</script>");
 				return;
 			}
-			String sql = "SELECT TenMonHoc,MaDeThi,NgayMoDeThi,GioMoDeThi,Diem" + " FROM quizz.user_dethi,dethi,monhoc"
-					+ " where user_dethi.MaDeThi=dethi.idDeThi and dethi.MaMonHoc=monhoc.idMonHoc and"
-					+ " user_dethi.MaSinhVien='"+s+"'";
-			ResultSet rs = cn.GetData(sql);
-			if (!rs.next()) {
+			//
+			List<User_DeThi> us_Ds = user_DeThiDAO.findBymaSinhVien(userDAO.findById(s));
+			if(us_Ds.isEmpty()){
 				out.print("<h2 style='color:red'>You haven't done any exam </h2>");
 				return;
 			}
+			
 		%>
 		<h4 style="margin-top: 15px">Student: <%=session.getAttribute("name")%></h4>
 		<table class="table">
@@ -65,15 +87,17 @@
 				</tr>
 			</thead>
 			<tbody>
-				<%do{ %>
+				<%for(User_DeThi us_D:us_Ds){
+						MonHoc mh = monHocDAO.findByidMonHoc(us_D.getMaDeThi().getMaMonHoc());
+						%>
 				<tr>
-					<td><%=rs.getString(1) %></td>
-					<td><%=rs.getString(2) %></td>
-					<td><%=rs.getString(3) %></td>
-					<td><%=rs.getString(4) %></td>
-					<td><%=rs.getString(5) %></td>
+					<td><%=mh.getTenMonHoc() %></td>
+					<td><%=us_D.getMaDeThi().getIdDeThi() %></td>
+					<td><%=us_D.getMaDeThi().getNgayMoDeThi() %></td>
+					<td><%=us_D.getMaDeThi().getGioMoDeThi() %></td>
+					<td><%=us_D.getDiem() %></td>
 				</tr>
-				<%}while(rs.next());%>
+				<%}%>
 			</tbody>
 		</table>
 		<center>

@@ -1,17 +1,30 @@
+<%@page import="doan.quizzOnline.service.QuizzBankManagerService"%>
+<%@page import="doan.quizzOnline.model.CauHoiDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
+<%@page import="doan.quizzOnline.DTO.Quizz"%>
 <%@page import="javax.crypto.AEADBadTagException"%>
-<%@page import="quizzs.Quizz"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="bankManager.GetAllQuizzs"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+
+@Autowired
+CauHoiDAO cauHoiDAO;
+
+@Autowired
+QuizzBankManagerService bankService;
+%>
     <link rel="stylesheet" type="text/css" href="quizzmanager/quizzmanager.css">
 <div class="col-md-1"></div>
 <div class="col-md-10" id="MainQuizzManager">
 	<center><h1>Managing Bank Quizz Page</h1></center>
 	<%
-		GetAllQuizzs gs=new GetAllQuizzs();
-		ArrayList<Quizz> arQuizz= gs.getAllQuizzsArrayList();
+		ArrayList<Quizz> arQuizz= bankService.getAllQuizzsArrayList();
 		if(arQuizz!=null){
 			session.setAttribute("listQuizz", arQuizz);
 		}
@@ -97,7 +110,7 @@
 		<center>
 			<button class="btn btn-warning" onclick="previousPage()">BACK</button>
 			<input maxlength="4" size="4" type="number" value="1" style="display: inline;" readonly id="currentPage">
-			<p style="display: inline;" id="MaxPage"><%if(arQuizz.size()%10==0) out.print(arQuizz.size()%10); else out.print(arQuizz.size()/10+1);%></p>
+			<p style="display: inline;" id="MaxPage"><%if(arQuizz.size()%10==0) out.print(arQuizz.size()/10); else out.print(arQuizz.size()/10+1);%></p>
 			<button class="btn btn-warning" onclick="nextPage()" style="display: inline;">NEXT</button>
 		</center>
 	</div>

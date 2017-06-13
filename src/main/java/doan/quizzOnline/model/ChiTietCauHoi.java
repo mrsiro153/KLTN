@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -16,9 +17,9 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class ChiTietCauHoi implements Serializable{
 	//
 	@Id
-	@NotEmpty
+	@NotNull
     @Column(name="macauhoi", nullable=false)
-	int maCauHoi;
+	Integer maCauHoi;
 	//
 	@Column(name="dapana")
 	String dapAnA;
@@ -38,7 +39,7 @@ public class ChiTietCauHoi implements Serializable{
 	CauHoi cauHoi;
 	//
 	public ChiTietCauHoi(){}
-	public ChiTietCauHoi(int maCauHoi,String dapAnA,String dapAnB,String dapAnC,String dapAnD){
+	public ChiTietCauHoi(Integer maCauHoi,String dapAnA,String dapAnB,String dapAnC,String dapAnD){
 		this.maCauHoi=maCauHoi;
 		this.dapAnA=dapAnA;
 		this.dapAnB=dapAnB;
@@ -46,10 +47,10 @@ public class ChiTietCauHoi implements Serializable{
 		this.dapAnD=dapAnD;
 	}
 	//
-	public int getMaCauHoi() {
+	public Integer getMaCauHoi() {
 		return maCauHoi;
 	}
-	public void setMaCauHoi(int maCauHoi) {
+	public void setMaCauHoi(Integer maCauHoi) {
 		this.maCauHoi = maCauHoi;
 	}
 	public String getDapAnA() {

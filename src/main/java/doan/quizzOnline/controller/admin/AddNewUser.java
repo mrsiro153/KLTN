@@ -53,7 +53,9 @@ public class AddNewUser {
 			//add user
 			User userToAdd = new User(id, name, Date.valueOf(dob), sex, address, phone, paEncode,
 					quyenDAO.findById(Integer.valueOf(pre)));
-			userService.saveNewUser(userToAdd);
+			if(userService.saveNewUser(userToAdd)==null) {
+				throw new Exception("add failed");
+			}
 			logger.info("add new user successfully");
 			out.println("<script> alert('Success!!') </script>");
 

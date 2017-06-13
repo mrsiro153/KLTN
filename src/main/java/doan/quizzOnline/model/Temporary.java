@@ -11,6 +11,7 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 //public class Temporary{}
@@ -21,30 +22,32 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class Temporary implements Serializable{
 	//
 	@Id
+	@NotEmpty
 	@Column(name="iduser")
 	String iduser;
 	//	
 	@Id
+	@NotNull
 	@Column(name="idexam")
-	int idexam;
+	Integer idexam;
 	//
 	@Column(name="timere")
 	String timere;
 	//
 	@Id
-	@NotEmpty
+	@NotNull
 	@Column(name="idquizz",nullable=false)
-	int idquizz;
+	Integer idquizz;
 	//
 	@Column(name="yourans")
 	String yourAns;
 	//
-	@ManyToOne(cascade=CascadeType.ALL,optional=false)
+	@ManyToOne(optional=false)
 	@JoinColumn(name="idquizz",insertable=false,updatable=false)
 	CauHoi cauHoi;
 	//
 	public Temporary() {}
-	public Temporary(String idUser, int idExam, String timeRe, int idQuizz, String yourAns) {
+	public Temporary(String idUser, Integer idExam, String timeRe, Integer idQuizz, String yourAns) {
 		this.iduser = idUser;
 		this.idexam = idExam;
 		this.timere = timeRe;
@@ -58,10 +61,10 @@ public class Temporary implements Serializable{
 	public void setIdUser(String idUser) {
 		this.iduser = idUser;
 	}
-	public int getIdExam() {
+	public Integer getIdExam() {
 		return idexam;
 	}
-	public void setIdExam(int idExam) {
+	public void setIdExam(Integer idExam) {
 		this.idexam = idExam;
 	}
 	public String getTimeRe() {
@@ -70,10 +73,10 @@ public class Temporary implements Serializable{
 	public void setTimeRe(String timeRe) {
 		this.timere = timeRe;
 	}
-	public int getIdQuizz() {
+	public Integer getIdQuizz() {
 		return idquizz;
 	}
-	public void setIdQuizz(int idQuizz) {
+	public void setIdQuizz(Integer idQuizz) {
 		this.idquizz = idQuizz;
 	}
 	public String getYourAns() {

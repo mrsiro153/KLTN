@@ -1,7 +1,25 @@
-<%@page import="java.sql.ResultSet"%>
-<%@page import="bankManager.GetAllQuizzs"%>
+<%@page import="doan.quizzOnline.model.NoiDung"%>
+<%@page import="java.util.List"%>
+<%@page import="org.bouncycastle.jce.provider.JDKDSASigner.noneDSA"%>
+<%@page import="doan.quizzOnline.model.NoiDungDAO"%>
+<%@page import="doan.quizzOnline.model.MonHocDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="doan.quizzOnline.service.QuizzBankManagerService"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+
+@Autowired
+NoiDungDAO noiDungDAO;
+
+@Autowired
+MonHocDAO monHocDAO;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	String idMH= request.getParameter("idMonHoc");
@@ -9,18 +27,17 @@
 		out.print("alert('Nothing here');");
 		return;
 	}
-	GetAllQuizzs gs=new GetAllQuizzs();
-	ResultSet rs=gs.GetOnlyParts(idMH);
-	if(rs==null){
+	List<NoiDung> rs = noiDungDAO.findByIdMonHoc(monHocDAO.findByidMonHoc(Integer.parseInt(idMH)));
+	if(rs.isEmpty()){
 		out.print("can't find data");
 		return;
 	}
 %>
 <p>Select part of subject:</p>
 <select name="idPart" class="form-control">
-	<% do{ %>
-	<option value="<%=rs.getString("idNoiDung")%>"><%=rs.getString("TenNoiDung")%></option>
-	<%}while(rs.next()); %>
+	<% for(NoiDung n: rs){ %>
+	<option value="<%=n.getIdNoiDung()%>"><%=n.getTenNoiDung()%></option>
+	<%} %>
 </select>
 <div class="form-group" style="margin-top: 15px;">
       <label class="control-label col-sm-2">ID Quizz:</label>

@@ -50,7 +50,7 @@ if(session.getAttribute("pre").equals("5")){
 <script type="text/javascript" src="timer1.js"></script>
 <script type="text/javascript" src="timer2.js"></script>
 </head>
-<body style="background: url(hinhanh/anh2.jpg);" onunload="unloadOrInterrupt()">
+<body style="background: url(hinhanh/anh2.jpg);" onbeforeunload="unloadOrInterrupt()">
 	<div class="mainpage_navbar">
 		<img src="hinhanh/logo2.png" width="160px" height="160px"
 			style="margin-left: 150px;">

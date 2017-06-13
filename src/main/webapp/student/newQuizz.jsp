@@ -1,4 +1,4 @@
-<%@page import="quizzs.Quizz"%>
+<%@page import="doan.quizzOnline.DTO.Quizz"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>

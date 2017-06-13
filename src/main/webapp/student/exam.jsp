@@ -1,11 +1,31 @@
+<%@page import="doan.quizzOnline.model.DeThi"%>
+<%@page import="doan.quizzOnline.model.DeThiDAO"%>
+<%@page import="doan.quizzOnline.model.DeThi_CauHoiDAO"%>
+<%@page import="doan.quizzOnline.model.DeThi_CauHoi"%>
+<%@page import="doan.quizzOnline.model.TemporaryDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
+<%@page import="doan.quizzOnline.model.Temporary"%>
+<%@page import="java.util.List"%>
+<%@page import="doan.quizzOnline.DTO.Quizz"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="student.*"%>
-<%@ page import="quizzs.*"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+@Autowired
+TemporaryDAO temporaryDAO;
+
+@Autowired
+DeThi_CauHoiDAO deThi_CauHoiDAO;
+
+@Autowired
+DeThiDAO deThiDAO;
+%>
     <%
-    GetExam ge=new GetExam();
     //get all quizzs form exam, store in arQuizz
     ArrayList<Quizz> arQuizz=new ArrayList<Quizz>();
     
@@ -13,21 +33,19 @@
     
   	//check if the user has do it before
     ArrayList<Quizz> arQuizzbefore = new ArrayList<Quizz>();
-  	ResultSet rs1=null;
-    rs1 = ge.OldResultOfExam((String)session.getAttribute("user"), idExam);
+  	List<Temporary> continueExam = temporaryDAO.findByIduserAndIdexam((String)session.getAttribute("user"), Integer.parseInt(idExam));
    	/*
    	main mission is set time and table outine, don't care the others
    	*/
    	String timeRe="";
-   	if(!rs1.next()){
-   		System.out.print("ko co gia tri");
+   	if(continueExam==null||continueExam.isEmpty()){
+   		System.out.print("ko co gia tri cho continue exam \n");
    	}else{   		
-   		timeRe=rs1.getString("timeRe");
+   		timeRe=continueExam.get(0).getTimeRe();
    		//System.out.print(timeRe);
-   		do{
-   			//System.out.print(rs1.getString("yourAns")+"  "+rs1.getString("idQuizz"));
-   			arQuizzbefore.add(new Quizz(rs1.getString("idQuizz"),rs1.getString("yourAns")));
-   		}while(rs1.next());		
+   		for(Temporary t: continueExam){
+   			arQuizzbefore.add(new Quizz(t.getIdQuizz()+"",t.getYourAns()));
+   		}
    	}
     //check....
     String time1= request.getParameter("time");
@@ -38,22 +56,23 @@
     //
     out.print("<p id='thoigianlambai' style='display:none;' >"+time1+"</p>");
     int timeMinute= Integer.parseInt(time1)/60;
-    ResultSet rs= ge.getContentExam(idExam);//ma de thi
-    if(rs!=null){
+    List<DeThi_CauHoi> dethi_cauhois= deThi_CauHoiDAO.findByMaDeThi(deThiDAO.findByidDeThi(Integer.parseInt(idExam)));
+    if(dethi_cauhois!=null){
     	out.println("<p style='display:none;' id='idSinhVien'>"+session.getAttribute("user")+"</p>");
     	out.println("<p style='display:none;' id='idDeThi'>"+idExam+"</p>");
-    	do{
+    	for(DeThi_CauHoi d: dethi_cauhois){
     		String id,content,trueRs,ARs,BRs,CRs,DRs;
-    		id=rs.getString(2);
-    		content=rs.getString(4);
-    		trueRs=rs.getString(5);
-    		ARs=rs.getString(8);
-    		BRs=rs.getString(9);
-    		CRs=rs.getString(10);
-    		DRs=rs.getString(11);
+    		id=d.getMaCauHoi().getIdCauHoi()+"";
+    		content=d.getMaCauHoi().getNoiDungCauHoi();
+    		trueRs=d.getMaCauHoi().getDapAnDung();
+    		ARs=d.getMaCauHoi().getChiTietCauHoi().getDapAnA();
+    		BRs=d.getMaCauHoi().getChiTietCauHoi().getDapAnB();
+    		CRs=d.getMaCauHoi().getChiTietCauHoi().getDapAnC();
+    		DRs=d.getMaCauHoi().getChiTietCauHoi().getDapAnD();
     		arQuizz.add(new Quizz(id,content,trueRs,ARs,BRs,CRs,DRs));
-    	}while(rs.next());
+    	}
     }
+    
     //add to session
     request.getSession().setAttribute("listcauhoi", arQuizz);
     int i=0;
@@ -119,7 +138,7 @@
 					</tbody>
 				</table>
 				<!---->
-				<center><button onclick="checkAnswer()" class="btn btn-default">SUBMIT</button></center>
+				<center><button onclick="confirmToCheckAnswer()" class="btn btn-default">SUBMIT</button></center>
 			</div>
 			<div class="modal-footer">
 			</div>

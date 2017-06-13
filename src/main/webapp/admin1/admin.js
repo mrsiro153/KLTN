@@ -14,8 +14,8 @@ function loadDoc2(haha) {
 		}
 	};
 	var s = "";
-	if (haha.id.match("home")) {
-		s = "home";
+	if (haha.id.match("exam")) {
+		s = "manage_exam";
 	} else if (haha.id.match("user")) {
 		s = "manage_user";
 	} else {
@@ -55,4 +55,47 @@ function deleteUser(x){
 	var id = z.rows[y].cells[1].innerHTML;
 	document.getElementById("delRole").value = role;
 	document.getElementById("delId").value = id;
+}
+
+function searchExamSubject(){
+	searchBox = document.getElementById("searchBox");
+	examSubjects = document.getElementById("exam_subject");
+	//
+	var text = searchBox.value;
+    var options = examSubjects.options; 
+    for (var i = 0; i < options.length; i++) {
+        var option = options[i]; 
+        var optionText = option.text; 
+        var lowerOptionText = optionText.toLowerCase();
+        var lowerText = text.toLowerCase(); 
+        var regex = new RegExp("^" + text, "i");
+        var match = optionText.match(regex); 
+        var contains = lowerOptionText.indexOf(lowerText) != -1;
+        if (match || contains) {
+            option.selected = true;
+            loadExamSubject(examSubjects);
+            return;
+        }
+        searchBox.selectedIndex = 0;
+    }
+}
+function loadExamSubject(selectBox){
+	var text = selectBox.value;
+	var value = text.substring(0, 1);
+	for (var i = 0; i<text.length; i++){
+		if(text.charAt(i)==" "){
+			value = text.substring(0,i);
+			break;
+		}
+		//console.log(text.charAt(i)+" ");
+	}
+	console.log(text+"   "+value);
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("ScoresExam").innerHTML = this.responseText;
+		}
+	};
+	xhttp.open("GET", "admin1/contentExam.jsp?idExam=" + value, true);
+	xhttp.send();
 }

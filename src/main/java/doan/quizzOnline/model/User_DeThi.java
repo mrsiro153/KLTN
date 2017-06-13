@@ -8,6 +8,10 @@ import javax.persistence.IdClass;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,23 +21,24 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class User_DeThi {
 	
 	@Id
-	@NotEmpty
 	@JoinColumn(name="masinhvien")
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne()
 	User maSinhVien;
 	//
+	//@Size(min=0,max=40)
 	@Id
-	@NotEmpty
 	@JoinColumn(name="madethi")
-	@ManyToOne(cascade= CascadeType.ALL)
+	@ManyToOne()
 	DeThi maDeThi;
-	//
+	
+	@DecimalMax("10.0") 
+	@DecimalMin("0.0") 
 	@Column(name="diem")
-	float dIem;
+	Float dIem;
 	//
-	protected User_DeThi(){}
+	public User_DeThi(){}
 	//
-	public User_DeThi(User maSinhVien,DeThi maDeThi,float diem){
+	public User_DeThi(User maSinhVien,DeThi maDeThi,Float diem){
 		this.maSinhVien=maSinhVien;
 		this.maDeThi=maDeThi;
 		this.dIem=diem;
@@ -50,10 +55,10 @@ public class User_DeThi {
 	public void setMaDeThi(DeThi maDeThi) {
 		this.maDeThi = maDeThi;
 	}
-	public float getDiem() {
+	public Float getDiem() {
 		return dIem;
 	}
-	public void setDiem(float diem) {
+	public void setDiem(Float diem) {
 		this.dIem = diem;
 	}
 }

@@ -1,7 +1,14 @@
-<%@page import="quizzs.Quizz"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
+<%@page import="doan.quizzOnline.DTO.Quizz"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <% 
 ArrayList<Quizz> arQuizz = new ArrayList<Quizz>();

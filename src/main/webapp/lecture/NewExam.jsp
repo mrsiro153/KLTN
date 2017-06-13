@@ -1,7 +1,27 @@
-<%@page import="lecture.GetSubject"%>
-<%@page import="java.sql.ResultSet"%>
+<%@page import="doan.quizzOnline.model.NoiDung"%>
+<%@page import="doan.quizzOnline.model.NoiDungDAO"%>
+<%@page import="doan.quizzOnline.model.MonHoc"%>
+<%@page import="java.util.List"%>
+<%@page import="doan.quizzOnline.model.DeThiDAO"%>
+<%@page import="doan.quizzOnline.model.MonHocDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
 	pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+@Autowired
+MonHocDAO monHocDAO;
+
+@Autowired
+DeThiDAO deThiDAO;
+
+@Autowired
+NoiDungDAO noiDungDAO;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -46,9 +66,9 @@ function SelectBoxValue(selectBox){
 </head>
 <body>
 	<%
-		GetSubject gS=new GetSubject();
-		ResultSet rs= gS.getOnlySubjects();
-		if(rs==null){
+		
+		List<MonHoc> rs= monHocDAO.findAll();
+		if(rs.isEmpty()){
 			return;
 		}
 	%>
@@ -57,9 +77,9 @@ function SelectBoxValue(selectBox){
 		<form action="createNewExam" method="get" style="margin-top: 30px;">
 			<div class="col-md-3">
 				<select name="maMonHoc" onchange="SelectBoxValue(this)">
-					<% do{ %>
-						<option value="<%=rs.getString("idMonHoc")%>"><%=rs.getString("TenMonHoc")%></option>			
-					<% }while(rs.next()); %>
+					<% for(MonHoc m : rs){ %>
+						<option value="<%=m.getIdMonHoc()%>"><%=m.getTenMonHoc()%></option>			
+					<% } %>
 				</select>
 			</div>
 			<div class="col-md-6 SelectQuestion" id="AllParts">
@@ -74,18 +94,18 @@ function SelectBoxValue(selectBox){
 					<tbody>
 						<%if(request.getParameter("idMonHoc")!=null){
 							String idmon=request.getParameter("idMonHoc");
-							ResultSet rs1=gS.getParts(idmon);
-							if(rs1==null){
+							List<NoiDung> rs1=noiDungDAO.findByIdMonHoc((monHocDAO.findByidMonHoc(Integer.parseInt(idmon))));
+							if(rs1.isEmpty()){
 							}else{
-								do{
+								for(NoiDung n : rs1){
 						%>
 						<tr>
-							<td style="display: none"><input name="idPart" value="<%=rs1.getString("idNoiDung")%>"></td>
-							<td><%=rs1.getString("TenNoiDung")%></td>
+							<td style="display: none"><input name="idPart" value="<%=n.getIdNoiDung()%>"></td>
+							<td><%=n.getTenNoiDung()%></td>
 							<td><input type="number" class="form-control" name="numbersQuizz" required></td>
 						</tr>
 						<%
-								}while(rs1.next());
+								}
 							}
 						}
 						%>

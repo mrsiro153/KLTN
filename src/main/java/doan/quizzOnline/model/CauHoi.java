@@ -3,7 +3,6 @@ package doan.quizzOnline.model;
 import java.io.Serializable;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,17 +11,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "cauhoi")
 public class CauHoi implements Serializable {
 	
 	@Id
-	@NotEmpty
+	@NotNull
     @Column(name="idcauhoi", nullable=false)
-	int idCauHoi;
+	Integer idCauHoi;
 	//
 	@Column(name="noidungcauhoi")
 	String noiDungCauHoi;
@@ -31,22 +30,22 @@ public class CauHoi implements Serializable {
 	String dapAnDung;
 	//
 	@JoinColumn(name="manoidung")
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne()
 	NoiDung maNoiDung;
 	//
-	@OneToMany(mappedBy="maCauHoi",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="maCauHoi")
 	Set<DeThi_CauHoi> deThiCauHois;
 	//
-	@OneToOne(cascade = CascadeType.ALL, mappedBy = "cauHoi")
+	@OneToOne(mappedBy = "cauHoi")
 	ChiTietCauHoi chiTietCauHoi;
 	//
 	//1 cau hoi --> nhieu temporary
 	//1 temporary -->1 cauhoi
-	@OneToMany(mappedBy="cauHoi",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="cauHoi")
 	Set<Temporary> temporaris;
 	//
 	public CauHoi(){}
-	public CauHoi(int idCauHoi,String noiDungCauHoi,String dapAnDung,NoiDung maNoiDung){
+	public CauHoi(Integer idCauHoi,String noiDungCauHoi,String dapAnDung,NoiDung maNoiDung){
 		this.idCauHoi=idCauHoi;
 		this.noiDungCauHoi=noiDungCauHoi;
 		this.dapAnDung=dapAnDung;
@@ -54,10 +53,10 @@ public class CauHoi implements Serializable {
 		//this.chiTietCauHoi=chiTietCauHoi;
 	}
 	//
-	public int getIdCauHoi() {
+	public Integer getIdCauHoi() {
 		return idCauHoi;
 	}
-	public void setIdCauHoi(int idCauHoi) {
+	public void setIdCauHoi(Integer idCauHoi) {
 		this.idCauHoi = idCauHoi;
 	}
 	public String getNoiDungCauHoi() {

@@ -69,6 +69,7 @@ public class Login_Logout {
 			}
 			//
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error(e.toString());
 			out.print("<script> alert('Wrong username or password!') </script>");
 			RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");

@@ -1,6 +1,5 @@
 package doan.quizzOnline.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
@@ -8,23 +7,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 @Entity
 @Table(name = "dethi_cauhoi")
 @IdClass(DeThi_CauHoiPrimaryKey.class)
 public class DeThi_CauHoi {
-	//
+	
+	//@Valid
 	@Id
-	@NotEmpty
-    @JoinColumn(name="madethi", nullable=false)
-	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="madethi")
+	@ManyToOne()
 	DeThi maDeThi;
 	//
+	//@Valid
+	
+	//@NotEmpty
 	@Id
-	@NotEmpty
-    @JoinColumn(name="macauhoi", nullable=false)
-	@ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name="macauhoi")
+	@ManyToOne()
 	CauHoi maCauHoi;
 	//
 	public DeThi_CauHoi(){}

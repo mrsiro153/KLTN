@@ -1,10 +1,35 @@
+<%@page import="doan.quizzOnline.model.UserDAO"%>
+<%@page import="doan.quizzOnline.model.User_DeThi"%>
+<%@page import="doan.quizzOnline.model.User_DeThiDAO"%>
+<%@page import="doan.quizzOnline.model.DeThi"%>
+<%@page import="java.util.List"%>
+<%@page import="doan.quizzOnline.model.MonHocDAO"%>
+<%@page import="doan.quizzOnline.model.DeThiDAO"%>
+<%@page import="org.springframework.beans.factory.annotation.Autowired"%>
+<%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
 <%@page import="java.util.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="student.*"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<%!
+public void jspInit() 
+{
+    SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,getServletContext());
+}
+@Autowired
+DeThiDAO deThiDAO;
+
+@Autowired
+MonHocDAO monHocDAO;
+
+@Autowired
+User_DeThiDAO user_DeThiDAO;
+
+@Autowired
+UserDAO userDAO;
+%>
     
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -34,45 +59,39 @@
 			</thead>
 			<tbody>
 				<%
-				GetExam ge=new GetExam();
-				ResultSet rs=ge.getAllExam();
-				if(rs==null){
-					//nothing
-				}else{
-					do{
-						if(rs.getString(4)==null||rs.getString(5)==null){
-							continue;
-							//rejest all exams with null date and time
-						}
-						Date date = new Date();//today Date type
-						DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");				        
-				        Date dateInDatabase=sdf.parse(rs.getString(4)+" "+rs.getString(5));//convert date form database
-				        //
-				        if(!date.after(dateInDatabase)){//check date time
+				List<DeThi> dethis = deThiDAO.findAll(); 
+				if(!dethis.isEmpty()){
+					for(DeThi d : dethis){
+						//if NgayMoDeThi or GioMoDeThi = null, don't print anything
+						if(d.getGioMoDeThi()==null||d.getNgayMoDeThi()==null||d.getStatus()!=0) continue;
+						Date date = new Date();
+						DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						Date dateInDatabase = sdf.parse(d.getNgayMoDeThi()+" "+d.getGioMoDeThi());
+						if(!date.after(dateInDatabase)){//check date time
 				        	//if date after dateindatabse true
 				        	//! mean : fasle!
 				        	continue;
 				        }
-				        //now check in database, if Student have done it, can't start it again!!!
-				        int result=ge.CheckStudent_Exam(session.getAttribute("user").toString(),rs.getString("idDeThi"));
-				        if(result==1){//ton tai trong database
-				        	continue;
-				        //khong cho lam
-				        }
-				%>
-				<tr class="info1">
-					<td><%=rs.getString("TenMonHoc") %></td>
-					<td><%=rs.getString("idDeThi") %></td>
-					<td><%=rs.getString("SoCauHoi") %></td>
-					<td><%int x = Integer.parseInt(rs.getString("ThoiLuong"));
+						//now check in database, if Student have done it, can't start it again!!!
+						User_DeThi currentUser_Dethi = user_DeThiDAO.findBymaSinhVienAndMaDeThi(userDAO.findById(session.getAttribute("user").toString()), d);
+						if(currentUser_Dethi!=null){
+							continue;
+						}
+						//pass validation, print exam
+						%>
+						<tr class="info1">
+							<td><%=monHocDAO.findByidMonHoc(d.getMaMonHoc()).getTenMonHoc() %></td>
+							<td><%=d.getIdDeThi() %></td>
+							<td><%=d.getSoCauHoi() %></td>
+							<td><%int x = Integer.parseInt(d.getThoiLuong());
 							out.print(x);%></td>
-					<td><%=rs.getString(4)+"\""+rs.getString(5) %></td>
-					<td>
+							<td><%=d.getNgayMoDeThi()+"\""+d.getGioMoDeThi() %></td>
+							<td>
 						<button class="btn btn-primary" onclick="load_exam(this)">Start</button>
 						<button class="btn btn-info" onclick="getDetails(this)">details</button>
 					</td>
-				<%		
-					}while(rs.next());
+						<%
+					}
 				}
 				%>
 			</tbody>

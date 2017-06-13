@@ -3,7 +3,6 @@ package doan.quizzOnline.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
 import doan.quizzOnline.model.User;
@@ -21,12 +20,14 @@ public class UserService {
 		return userDAO;
 	}
 
-	public void saveNewUser(User user) {
+	public User saveNewUser(User user) {
 		try {
-			userDAO.save(user);
+			return userDAO.save(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
+		
 	}
 
 	public User getUserById(String idUser) {

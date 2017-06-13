@@ -4,12 +4,12 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -17,15 +17,15 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name = "dethi")
 public class DeThi {
 	@Id
-	@NotEmpty
+	@NotNull
     @Column(name="iddethi", nullable=false)
-	int idDeThi;
+	Integer idDeThi;
 	//
 	@Column(name="thoiluong")
 	String thoiLuong;
 	//
 	@Column(name="socauhoi")
-	int soCauHoi;
+	Integer soCauHoi;
 	//
 	@Column(name="ngaymodethi")
 	Date ngayMoDeThi;
@@ -34,16 +34,19 @@ public class DeThi {
 	Time gioMoDeThi;
 	//
 	@Column(name="mamonhoc")
-	int maMonHoc;
+	Integer maMonHoc;
 	//
-	@OneToMany(mappedBy="maDeThi",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="maDeThi")
 	Set<User_DeThi> user_dethis;
-	//
-	@OneToMany(mappedBy="maDeThi",cascade=CascadeType.ALL)
+	
+	@OneToMany(mappedBy="maDeThi")
 	Set<DeThi_CauHoi> deThiCauHois;
 	//
+	@Column(name="status")
+	Integer status;
+	//
 	public DeThi(){}
-	public DeThi(int idDeThi,String thoiLuong,int soCauHoi,Date ngayMoDeThi,Time gioMoDeThi,int maMonHoc){
+	public DeThi(Integer idDeThi,String thoiLuong,Integer soCauHoi,Date ngayMoDeThi,Time gioMoDeThi,Integer maMonHoc){
 		this.idDeThi=idDeThi;
 		this.thoiLuong=thoiLuong;
 		this.soCauHoi=soCauHoi;
@@ -52,10 +55,17 @@ public class DeThi {
 		this.maMonHoc=maMonHoc;
 	}
 	//
-	public int getIdDeThi() {
+	public DeThi(Integer idDeThi, String thoiLuong, Integer soCauHoi, Integer maMonHoc) {
+		this.idDeThi = idDeThi;
+		this.thoiLuong = thoiLuong;
+		this.soCauHoi = soCauHoi;
+		this.maMonHoc = maMonHoc;
+	}
+	//
+	public Integer getIdDeThi() {
 		return idDeThi;
 	}
-	public void setIdDeThi(int idDeThi) {
+	public void setIdDeThi(Integer idDeThi) {
 		this.idDeThi = idDeThi;
 	}
 	public String getThoiLuong() {
@@ -64,10 +74,10 @@ public class DeThi {
 	public void setThoiLuong(String thoiLuong) {
 		this.thoiLuong = thoiLuong;
 	}
-	public int getSoCauHoi() {
+	public Integer getSoCauHoi() {
 		return soCauHoi;
 	}
-	public void setSoCauHoi(int soCauHoi) {
+	public void setSoCauHoi(Integer soCauHoi) {
 		this.soCauHoi = soCauHoi;
 	}
 	public Date getNgayMoDeThi() {
@@ -82,10 +92,10 @@ public class DeThi {
 	public void setGioMoDeThi(Time gioMoDeThi) {
 		this.gioMoDeThi = gioMoDeThi;
 	}
-	public int getMaMonHoc() {
+	public Integer getMaMonHoc() {
 		return maMonHoc;
 	}
-	public void setMaMonHoc(int maMonHoc) {
+	public void setMaMonHoc(Integer maMonHoc) {
 		this.maMonHoc = maMonHoc;
 	}
 	//
@@ -101,6 +111,12 @@ public class DeThi {
 	}
 	public void setDeThiCauHois(Set<DeThi_CauHoi> deThiCauHois) {
 		this.deThiCauHois = deThiCauHois;
+	}
+	public Integer getStatus() {
+		return status;
+	}
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 	
 }

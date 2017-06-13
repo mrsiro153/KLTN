@@ -16,7 +16,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import doan.quizzOnline.model.Quyen;
 import doan.quizzOnline.model.QuyenDAO;
 import doan.quizzOnline.model.User;
 import doan.quizzOnline.service.UserService;
@@ -46,32 +45,21 @@ public class EditUser {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			String paEncode = passwordEncoder.encode(pa);
 			//check role, id role exist in database
-			logger.info(role);
 			User user = new User(id,name,Date.valueOf(dob),sex,address,phone,paEncode,null);
-			try{
-				userService.saveNewUser(user);
-			}catch(Exception e){
-				
+			User usTest = userService.saveNewUser(user);
+			if(usTest==null){
+				throw new Exception("edit and save user failed!!");
 			}
 			out.println("<script> alert('Success') </script>");
+			logger.info("edit and save user success");
 		} catch (Exception e) {
 			out.println("<script> alert('Wrong information, check again') </script>");
-			logger.error(e.getMessage());
+			logger.error(e.toString());
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
 		rd.include(request, response);
 	}
 	
-	String mappingQuyen(String nameRole){
-		switch (nameRole) {
-		case "":
-			break;
-			
-		default:
-			break;
-		}
-		return "";
-	}
 	
 	@Autowired
 	UserService userService;

@@ -3,7 +3,6 @@ package doan.quizzOnline.model;
 import java.sql.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,13 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 @Table(name = "user")
 public class User {
 	@Id
-	@NotEmpty
     @Column(name="id", nullable=false)
 	String id;
 	//
@@ -44,11 +41,11 @@ public class User {
 	//int quyen;
 	
 	//foreign key
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne()
 	@JoinColumn(name="quyen",updatable=false)
 	Quyen quyen;
 	//
-	@OneToMany(mappedBy="maSinhVien",cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="maSinhVien")
 	Set<User_DeThi> user_dethis;
 	//
 	public User(){}
@@ -89,6 +86,7 @@ public class User {
 	public void setNgaySinh(Date ngaySinh) {
 		this.ngaySinh = ngaySinh;
 	}
+	
 	public String getGioiTinh() {
 		return gioiTinh;
 	}

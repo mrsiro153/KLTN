@@ -73,6 +73,24 @@ function addToAnswersheet(radioBtn){
 	//
 	mytable.rows[currentQuizz+1].cells[2].textContent=valueBtn;
 }
+function confirmToCheckAnswer(){
+	var mytable = document.getElementById("tableOutline"); //table outline
+	var lengthTable = mytable.rows.length;
+	var RightQuizz=0;
+	var i = 0;
+	var dem = 0;
+	for(i;i<lengthTable-1;i++){
+		console.log(mytable.rows[i+1].cells[2].textContent+"::"+mytable.rows[i+1].cells[3].textContent);
+		if(mytable.rows[i+1].cells[2].textContent==""){
+			dem =dem+1;
+		}
+	}
+	//
+    var r = confirm("You want to submit the exam?\n"+dem+" quizzs don't have answer");
+    if (r == true) {
+        checkAnswer();
+    }
+}
 function checkAnswer(){
 	var mytable = document.getElementById("tableOutline"); //table outline
 	var lengthTable = mytable.rows.length;
@@ -92,7 +110,7 @@ function checkAnswer(){
 	var idDethi=document.getElementById("idDeThi").textContent;
 	//
 	var form = document.createElement("form");
-	form.setAttribute("method", "Get");
+	form.setAttribute("method", "POST");
     form.setAttribute("action", "setdiembaithi");
     var input1 = document.createElement("input");
     input1.setAttribute("type", "hidden");
@@ -158,4 +176,7 @@ function unloadOrInterrupt(){
 	//xhttp.setRequestHeader("Content-type", "application/json; charset=utf-8");
 	xhttp.open("get", "breakPage?currentExam="+data, true);
 	xhttp.send();
+}
+function closeDiemBaiThi(btn) {
+	btn.parentNode.parentNode.style.display="none";
 }

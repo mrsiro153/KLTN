@@ -14,6 +14,7 @@
 <!---->
 <a style="font-size: 150%; cursor:pointer; margin-left:5px;" class="tablink" onclick="opentab(event,this)" id="user">Manage User</a>
 <a style="font-size: 150%; margin-left:50px; cursor:pointer;" class="tablink" onclick="opentab(event,this)" id="role">Manage Role</a>
+<a style="font-size: 150%; margin-left:50px; cursor:pointer;" class="tablink" onclick="opentab(event,this)" id="exam">Manage Exam</a>
 <br><br>
 <div id="container1">
 	
