@@ -29,6 +29,7 @@ import doan.quizzOnline.model.NoiDungDAO;
 @Controller
 public class AddnewExam {
 	final Logger logger = Logger.getLogger(this.getClass());
+	private final Integer DEFAULT_STT_EXAM = 0; 
 
 	@RequestMapping(value = "/lecture/createNewExam", method = RequestMethod.GET)
 	public void addNewExam(HttpServletRequest request, HttpServletResponse response) {
@@ -65,7 +66,7 @@ public class AddnewExam {
 
 			// update dethi table
 			DeThi d = new DeThi(Integer.parseInt(idDeThi), timeOutConvertToInt + "", totalQuizzs,
-					Integer.parseInt(idMonHoc));
+					Integer.parseInt(idMonHoc),DEFAULT_STT_EXAM);
 			if(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi))!=null){
 				out.print("<script>alert('idExam exist!! try again')</script>");
 				rdi.include(request, response);

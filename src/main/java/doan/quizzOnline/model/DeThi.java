@@ -42,7 +42,7 @@ public class DeThi {
 	@OneToMany(mappedBy="maDeThi")
 	Set<DeThi_CauHoi> deThiCauHois;
 	//
-	@Column(name="status")
+	@Column(name="status",columnDefinition="default '0'" )
 	Integer status;
 	//
 	public DeThi(){}
@@ -55,11 +55,12 @@ public class DeThi {
 		this.maMonHoc=maMonHoc;
 	}
 	//
-	public DeThi(Integer idDeThi, String thoiLuong, Integer soCauHoi, Integer maMonHoc) {
+	public DeThi(Integer idDeThi, String thoiLuong, Integer soCauHoi, Integer maMonHoc,Integer status) {
 		this.idDeThi = idDeThi;
 		this.thoiLuong = thoiLuong;
 		this.soCauHoi = soCauHoi;
 		this.maMonHoc = maMonHoc;
+		this.status=status;
 	}
 	//
 	public Integer getIdDeThi() {

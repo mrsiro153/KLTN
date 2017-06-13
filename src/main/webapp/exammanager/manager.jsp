@@ -55,9 +55,9 @@ MonHocDAO monHocDAO;
 						%>
 					</td>
 					<td><input name="OpeningDate" class="form-control"
-						value="<%=d.getNgayMoDeThi()%>" type="date"></td>
+						value="<% try{out.print(d.getNgayMoDeThi());}catch(Exception e){out.print("not yet set");} %>" type="date"></td>
 					<td><input name="OpeningTime" class="form-control"
-						value="<%=d.getGioMoDeThi()%>" type="time"></td>
+						value="<%try{out.print(d.getGioMoDeThi());}catch(Exception e){out.print("not yet set");} %>" type="time"></td>
 					<td><%=monHocDAO.findByidMonHoc(d.getMaMonHoc()).getTenMonHoc()%></td>
 					<td>
 					<input name="status" type="checkbox" value="0" 
