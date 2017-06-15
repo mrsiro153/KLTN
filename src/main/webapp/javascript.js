@@ -23,6 +23,8 @@ function loadDoc(haha) {
     s="quizzmanager/quizzmanager.jsp";
   }else if(haha.id.match("guiding")){
     s="guiding.jsp";
+  }else if(haha.id.match("userManager")){
+	  s="exammanager/userExam.jsp";
   }else{
     s="question.jsp";
   }

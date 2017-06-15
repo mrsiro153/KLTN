@@ -83,6 +83,8 @@ if(session.getAttribute("pre").equals("5")){
 				if(pre.equals("4")){
 					out.print("<li onmouseover='mousehover(this)' onmouseout='mouseout(this)'"+
 							"id='manager' onclick='loadDoc(this)'>Manage exam</li>");
+					out.print("<li onmouseover='mousehover(this)' onmouseout='mouseout(this)'"+
+							"id='userManager' onclick='loadDoc(this)'>Exam-Student</li>");
 				}
 				if(pre.equals("5")){
 					out.print("<li onmouseover='mousehover(this)' onmouseout='mouseout(this)'"+

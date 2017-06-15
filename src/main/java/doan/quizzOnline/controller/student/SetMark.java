@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import doan.quizzOnline.model.DeThiDAO;
+import doan.quizzOnline.model.MonHocDAO;
 import doan.quizzOnline.model.Temporary;
 import doan.quizzOnline.model.TemporaryDAO;
 import doan.quizzOnline.model.UserDAO;
@@ -41,22 +42,36 @@ public class SetMark {
 					deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)), Float.parseFloat(diem));
 			logger.info(us_dt.getDiem() + " " + us_dt.getMaSinhVien().getId() + " " + us_dt.getMaDeThi().getIdDeThi());
 			logger.info(user_DeThiDAO.save(us_dt)); //
-			List<Temporary> temps = temporaryDAO.findByIduserAndIdexam(idUser, Integer.parseInt(idDeThi));
-			for (Temporary temp : temps) {
-				temporaryDAO.delete(temp);
+			try {
+				List<Temporary> temps = temporaryDAO.findByIduserAndIdexam(idUser, Integer.parseInt(idDeThi));
+				for (Temporary temp : temps) {
+					temporaryDAO.delete(temp);
+				}
+			} catch (Exception e) {
+				logger.error("can't not delete from temporary table");
 			}
-			RequestDispatcher rd  =request.getRequestDispatcher("MainPage.jsp");
-			out.print("<div style='position:fixed; left:30%; top:50%; background:rgba(144, 167, 182, 0.5); border-radius:10px' id='divDiemBaiThi'>");
+			RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
+			out.print(
+					"<div style='position:fixed; left:30%; top:50%; background:rgba(144, 167, 182, 0.5); border-radius:10px; "
+					+ "box-shadow: 10px 10px 5px grey; border:1px solid grey; padding:10px;' id='divDiemBaiThi'>");
 			out.print("<h2>Result of the Exam</h2><hr>");
-			out.print("<h4>Id Exam: "+idDeThi+"</h4>");
-			out.print("<h4>Score: <span style='color:red'>"+diem+"</span></h4><hr>");
-			out.print("<center><button onclick='closeDiemBaiThi(this)' class='btn btn-primary'>Close</button></center>");
+			out.print("<h4>Student: " + us_dt.getMaSinhVien().getHoTen() + "</h4>");
+			try {
+				out.print("<h4>Subject: " + monHocDAO.findByidMonHoc(us_dt.getMaDeThi().getMaMonHoc()).getTenMonHoc()
+						+ "</h4>");
+			} catch (Exception e) {
+				logger.error(e.getMessage());
+			}
+			out.print("<h4>Id Exam: " + idDeThi + "</h4>");
+			out.print("<h4>Score: <span style='color:red'>" + diem + "</span></h4><hr>");
+			out.print(
+					"<center><button onclick='closeDiemBaiThi(this)' class='btn btn-primary'>Close</button></center>");
 			out.print("</div>");
 			rd.include(request, response);
 			return;
-			//response.sendRedirect("MainPage.jsp");
+			// response.sendRedirect("MainPage.jsp");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.toString());
 			logger.fatal(e.getMessage() + " " + e.getStackTrace());
 			out.println("<script>alert('some error!!')</script>");
 			RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
@@ -76,4 +91,7 @@ public class SetMark {
 
 	@Autowired
 	DeThiDAO deThiDAO;
+
+	@Autowired
+	MonHocDAO monHocDAO;
 }

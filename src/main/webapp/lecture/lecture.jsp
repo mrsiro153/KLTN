@@ -50,7 +50,7 @@ DeThiDAO deThiDAO;
 		</center>
 	</div>
 	<!-- noi dung mon hoc -->
-	<div class="col-md-5 col-md-offset-1 listExam">
+	<div class="col-md-7 col-md-offset-0 listExam">
 		<form method="post" action="editExamLecture">
 		<table class="table table-hover">
 			<thead>
