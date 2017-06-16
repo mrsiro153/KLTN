@@ -40,8 +40,9 @@ function load_exam(btn) {
 			document.getElementById("mainExam").innerHTML = this.responseText;
 		}
 	};
+	var nameExamEncode=encodeURI(z[0].textContent);
 	xhttp.open("GET", "student/exam.jsp?idexam=" + z[1].textContent + "&time="
-			+ z[3].textContent + "&nameExam=" + z[0].textContent, true);
+			+ z[3].textContent + "&nameExam=" + nameExamEncode, true);
 	xhttp.send();
 }
 function clickmeee() {

@@ -88,7 +88,7 @@ UserDAO userDAO;
 							<td><%=d.getNgayMoDeThi()+"\""+d.getGioMoDeThi() %></td>
 							<td>
 						<button class="btn btn-primary" onclick="load_exam(this)">Start</button>
-						<button class="btn btn-info" onclick="getDetails(this)">details</button>
+						<!-- <button class="btn btn-info" onclick="getDetails(this)">details</button>-->
 					</td>
 						<%
 					}

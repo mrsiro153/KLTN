@@ -28,8 +28,26 @@ UserDAO userDAO;
 	<center>
 		<h1>Exam And Student Manage Page</h1>
 	</center>
-	<div class="col-md-5">
-		<h2>Choose your exam</h2>
+	<div class="col-md-5"
+		style="width: 300px; display: inline-block; position: relative; top: 0px; float: left; left: 5px;">
+		<input type="search" id="searchBox" onkeyup="searchExamSubject()" class="form-control" placeholder="type exam here">
+		<select id="exam_subject" class="form-control" onchange="loadExamSubject(this)">
+			<%
+			String dethi = request.getParameter("idExam");
+			if(dethi!=null){
+				System.out.println(dethi);
+			}else{
+				dethi="1";
+			}
+				List<DeThi> ds = deThiDAO.findAll();
+				if (ds.isEmpty()) {
+					return;
+				}
+				for (DeThi d : ds) {
+			%>
+			<option><% out.print(d.getIdDeThi() + " -- " + monHocDAO.findByidMonHoc(d.getMaMonHoc()).getTenMonHoc());%></option>
+			<%}%>
+		</select>
 	</div>
 	<div>
 		<h2>You will see sinh vien with class=xxxx will do this exam</h2>
