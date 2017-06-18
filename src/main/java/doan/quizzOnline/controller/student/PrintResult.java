@@ -145,6 +145,9 @@ public class PrintResult {
 				table.setHeaderRows(1);
 				//
 				for (User_DeThi ud : uds) {
+					if(ud.getDiem()==null){
+						continue;
+					}
 					c1 = new PdfPCell(new Phrase(ud.getMaSinhVien().getId(), myF));
 					table.addCell(c1);
 					c1 = new PdfPCell(new Phrase(ud.getMaDeThi().getIdDeThi().toString(), myF));

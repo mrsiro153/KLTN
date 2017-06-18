@@ -42,14 +42,14 @@ public class SetMark {
 					deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)), Float.parseFloat(diem));
 			logger.info(us_dt.getDiem() + " " + us_dt.getMaSinhVien().getId() + " " + us_dt.getMaDeThi().getIdDeThi());
 			logger.info(user_DeThiDAO.save(us_dt)); //
-			try {
-				List<Temporary> temps = temporaryDAO.findByIduserAndIdexam(idUser, Integer.parseInt(idDeThi));
-				for (Temporary temp : temps) {
-					temporaryDAO.delete(temp);
-				}
-			} catch (Exception e) {
-				logger.error("can't not delete from temporary table");
-			}
+//			try {
+//				List<Temporary> temps = temporaryDAO.findByIduserAndIdexam(idUser, Integer.parseInt(idDeThi));
+//				for (Temporary temp : temps) {
+//					temporaryDAO.delete(temp);
+//				}
+//			} catch (Exception e) {
+//				logger.error("can't not delete from temporary table");
+//			}
 			RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
 			out.print(
 					"<div style='position:fixed; left:30%; top:50%; background:rgba(144, 167, 182, 0.5); border-radius:10px; "

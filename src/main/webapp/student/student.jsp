@@ -75,7 +75,9 @@ UserDAO userDAO;
 						//now check in database, if Student have done it, can't start it again!!!
 						User_DeThi currentUser_Dethi = user_DeThiDAO.findBymaSinhVienAndMaDeThi(userDAO.findById(session.getAttribute("user").toString()), d);
 						if(currentUser_Dethi!=null){
-							continue;
+							if(currentUser_Dethi.getDiem()!=null){
+								continue;
+							}
 						}
 						//pass validation, print exam
 						%>
@@ -88,7 +90,7 @@ UserDAO userDAO;
 							<td><%=d.getNgayMoDeThi()+"\""+d.getGioMoDeThi() %></td>
 							<td>
 						<button class="btn btn-primary" onclick="load_exam(this)">Start</button>
-						<!-- <button class="btn btn-info" onclick="getDetails(this)">details</button>-->
+						<!-- <button class="btn btn-info" onclick="getDetails(this)">details</button> -->
 					</td>
 						<%
 					}

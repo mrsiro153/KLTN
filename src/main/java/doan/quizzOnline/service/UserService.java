@@ -39,6 +39,7 @@ public class UserService {
 			userDAO.deleteById(user.getId());
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException("User can not delete because user have do the exam");
 		}
 	}
 

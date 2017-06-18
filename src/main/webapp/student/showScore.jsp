@@ -88,6 +88,9 @@ UserDAO userDAO;
 			</thead>
 			<tbody>
 				<%for(User_DeThi us_D:us_Ds){
+						if(us_D.getDiem()==null){
+							continue;
+						}
 						MonHoc mh = monHocDAO.findByidMonHoc(us_D.getMaDeThi().getMaMonHoc());
 						%>
 				<tr>

@@ -37,8 +37,8 @@ public class User {
 	@Column(name="password")
 	String passWord;
 	//
-	//@Column(name="quyen")
-	//int quyen;
+	@Column(name="lop", columnDefinition="default 'class1'")
+	String lop;
 	
 	//foreign key
 	@ManyToOne()
@@ -118,6 +118,19 @@ public class User {
 	}
 	public void setUser_dethis(Set<User_DeThi> user_dethis) {
 		this.user_dethis = user_dethis;
+	}
+	
+
+	public String getLop() {
+		return lop;
+	}
+
+	public void setLop(String lop) {
+		this.lop = lop;
+	}
+
+	public void setQuyen(Quyen quyen) {
+		this.quyen = quyen;
 	}
 	@Override
 	public String toString() {

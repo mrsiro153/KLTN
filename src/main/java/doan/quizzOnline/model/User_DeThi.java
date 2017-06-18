@@ -43,6 +43,10 @@ public class User_DeThi {
 		this.maDeThi=maDeThi;
 		this.dIem=diem;
 	}
+	public User_DeThi(User maSinhVien,DeThi maDeThi){
+		this.maSinhVien=maSinhVien;
+		this.maDeThi=maDeThi;
+	}
 	public User getMaSinhVien() {
 		return maSinhVien;
 	}

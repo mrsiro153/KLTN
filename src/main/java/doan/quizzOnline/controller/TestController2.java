@@ -33,9 +33,9 @@ public class TestController2 {
 	@RequestMapping(value="/user1",method=RequestMethod.GET)
 	@ResponseBody
 	public void test(){
-		List<DeThi> ds = deThiDAO.findAll();
-		for(DeThi d : ds){
-			logger.info(d.getIdDeThi()+" "+d.getThoiLuong()+" "+d.getNgayMoDeThi()+" "+d.getGioMoDeThi()+" "+d.getMaMonHoc());
+		List<User> uss = userDAO.findByQuyenAndClassOfStudent("class1");
+		for(User u : uss){
+			logger.info(u.getHoTen());
 		}
 	}
 	

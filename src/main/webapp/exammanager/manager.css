@@ -5,3 +5,7 @@
 h1{
 	color:red;
 }
+#studentInfoOfClass{
+	background-color: rgba(192,192,192,0.8);
+    margin-left: 10px;
+}

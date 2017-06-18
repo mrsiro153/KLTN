@@ -40,13 +40,13 @@ public class DeleteUser {
 				throw new Exception();
 			}
 			logger.info(userDelete.toString());
-			//delete user	
+			//delete user
 			userService.deleteUser(userDelete);
 			logger.info("delete success");
 			out.println("<script> alert('Delete user success') </script>");
 		} catch (Exception e) {
 			logger.error(e.toString());
-			out.println("<script> alert('User is not exist- can not delete') </script>");
+			out.println("<script> alert('User can not delete') </script>");
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
 		rd.include(request, response);
