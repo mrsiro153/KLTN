@@ -78,6 +78,8 @@ UserDAO userDAO;
 							if(currentUser_Dethi.getDiem()!=null){
 								continue;
 							}
+						}else{
+							continue;
 						}
 						//pass validation, print exam
 						%>

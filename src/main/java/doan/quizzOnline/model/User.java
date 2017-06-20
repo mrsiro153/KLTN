@@ -37,8 +37,8 @@ public class User {
 	@Column(name="password")
 	String passWord;
 	//
-	@Column(name="lop", columnDefinition="default 'class1'")
-	String lop;
+	@Column(name="lop", nullable=false, columnDefinition="VARCHAR(45) default 'class1'")
+	String lop ="undefine";
 	
 	//foreign key
 	@ManyToOne()
@@ -57,6 +57,18 @@ public class User {
 		this.gioiTinh = gioiTinh;
 		this.diaChi = diaChi;
 		this.sDT = sDT;
+		this.passWord = passWord;
+		this.quyen = quyen;
+	}
+	public User(String id, String hoTen, Date ngaySinh, String gioiTinh, String diaChi, String sDT, String passWord,
+			Quyen quyen,String lop) {
+		this.id = id;
+		this.hoTen = hoTen;
+		this.ngaySinh = ngaySinh;
+		this.gioiTinh = gioiTinh;
+		this.diaChi = diaChi;
+		this.sDT = sDT;
+		this.lop = lop;
 		this.passWord = passWord;
 		this.quyen = quyen;
 	}

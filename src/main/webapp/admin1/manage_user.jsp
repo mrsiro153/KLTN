@@ -34,6 +34,7 @@ UserService userService;
 				<th>Sex</th>
 				<th>Address</th>
 				<th>phone number</th>
+				<th>class</th>
 				<th>Tool</th>
 			</tr>
 		</thead>
@@ -50,6 +51,7 @@ UserService userService;
 				<td><%=rs.getGioiTinh()%></td>
 				<td><%=rs.getDiaChi()%></td>
 				<td><%=rs.getsDT()%></td>
+				<td><%=rs.getLop() %></td>
 				<td>
 					<button class="btn btn-info" data-toggle="modal"
 						data-target="#ModalEdit" onclick="editUser(this)">Edit</button>
@@ -145,6 +147,8 @@ UserService userService;
 							class="form-control" id="inputdefault" type="text" name="address">
 						<label>Phonenumber</label> <input class="form-control"
 							id="inputdefault" type="text" name="phone" required>
+						<label>Class</label> <input class="form-control"
+							id="inputdefault" type="text" name="classStudent" placeholder="Class of Student, ONLY use with student " >	
 					</div>
 					<center>
 						<button type="submit" style="margin-top: 20px" class="btn btn-default">Save</button>

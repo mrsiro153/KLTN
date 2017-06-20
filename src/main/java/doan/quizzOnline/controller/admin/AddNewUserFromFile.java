@@ -65,7 +65,7 @@ public class AddNewUserFromFile {
 				Sheet firstSheet = workbook.getSheetAt(0);
 				Iterator<Row> iterator = firstSheet.iterator();
 				int stt = 0;
-				String userAdding[] = new String[8];
+				String userAdding[] = new String[9];
 				int iteratorUserAdding = 0;
 				while (iterator.hasNext()) {
 					Row nextRow = iterator.next();
@@ -94,13 +94,22 @@ public class AddNewUserFromFile {
 								break;
 							}
 							iteratorUserAdding += 1;
-							if (iteratorUserAdding == 8) {
+							if (iteratorUserAdding == 9) {
 								try {
 									String paencode = passwordEncoder.encode(userAdding[6]);
 									java.sql.Date currentDateSQL = java.sql.Date.valueOf(userAdding[2]);
 									User newUser = new User(userAdding[0], userAdding[1], currentDateSQL, userAdding[3],
 											userAdding[4], userAdding[5], paencode,
 											quyenDAO.findById(Integer.parseInt(userAdding[7])));
+									if(Integer.parseInt(userAdding[7])==2){
+										if(userAdding[8].equals(null)){
+											logger.info("Student with lop = null");
+											throw new Exception();
+										}
+										newUser = new User(userAdding[0], userAdding[1], currentDateSQL, userAdding[3],
+												userAdding[4], userAdding[5], paencode,
+												quyenDAO.findById(Integer.parseInt(userAdding[7])),userAdding[8]);
+									}
 									if (userDAO.save(newUser) == null) {
 										outputNotification += "the user have name: " + userAdding[1] + " is failed \n";
 									}
@@ -117,6 +126,9 @@ public class AddNewUserFromFile {
 				}
 				workbook.close();
 				fileContent.close();
+				if(outputNotification.equals("")){
+					outputNotification="Success!";
+				}
 
 				out.print("<h5 style='color:white'>" + outputNotification + "</h5>");
 				rd.include(request, response);

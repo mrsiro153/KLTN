@@ -34,7 +34,7 @@ public class AddNewUser {
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html; charset=UTF-8");
 			//get information of add new user Form
-			String pre, id, pa, name, dob, sex, address, phone = "";
+			String pre, id, pa, name, dob, sex, address, phone, lop = "";
 			pre = request.getParameter("pre");
 			id = request.getParameter("id");
 			pa = request.getParameter("pa");
@@ -43,6 +43,7 @@ public class AddNewUser {
 			sex = request.getParameter("sex");
 			address = request.getParameter("address");
 			phone = request.getParameter("phone");
+			lop = request.getParameter("classStudent");
 			String paEncode = passwordEncoder.encode(pa);
 			//check user, if user existed in database, we don't add new
 			User userCheck =  userService.getUserById(id);
@@ -50,9 +51,17 @@ public class AddNewUser {
 				logger.info("user has existed in database - can't add new");
 				throw new Exception();
 			}
-			//add user
 			User userToAdd = new User(id, name, Date.valueOf(dob), sex, address, phone, paEncode,
 					quyenDAO.findById(Integer.valueOf(pre)));
+			//add user
+			if(Integer.valueOf(pre)==2){
+				if(lop.equals(null)){
+					logger.info("Student with lop = null");
+					throw new Exception();
+				}
+				userToAdd = new User(id, name, Date.valueOf(dob), sex, address, phone, paEncode,
+						quyenDAO.findById(Integer.valueOf(pre)),lop);
+			}
 			if(userService.saveNewUser(userToAdd)==null) {
 				throw new Exception("add failed");
 			}
@@ -61,7 +70,7 @@ public class AddNewUser {
 
 		} catch (Exception e) {
 			logger.error(e.toString());
-			out.println("<script> alert('Wrong information, check idUser again!!')</script>");
+			out.println("<script> alert('Wrong information, check it again!!')</script>");
 		}
 
 		RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
