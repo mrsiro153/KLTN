@@ -25,6 +25,8 @@ function loadDoc(haha) {
     s="guiding.jsp";
   }else if(haha.id.match("userManager")){
 	  s="exammanager/userExam.jsp";
+  }else if(haha.id.match("newExam")){
+	  s="lecture/NewExam.jsp?idMonHoc=1";
   }else{
     s="question.jsp";
   }

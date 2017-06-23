@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -29,16 +30,14 @@ import doan.quizzOnline.model.NoiDungDAO;
 @Controller
 public class AddnewExam {
 	final Logger logger = Logger.getLogger(this.getClass());
-	private final Integer DEFAULT_STT_EXAM = 0; 
+	private final Integer DEFAULT_STT_EXAM = 0;
 
-	@RequestMapping(value = "/lecture/createNewExam", method = RequestMethod.GET)
+	@RequestMapping(value = "/lecture/createNewExam", method = RequestMethod.POST)
 	public void addNewExam(HttpServletRequest request, HttpServletResponse response) {
+		String textResponse = "";
+		String color="red";
 		try {
 			request.setCharacterEncoding("utf-8");
-			response.setCharacterEncoding("utf-8");
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			RequestDispatcher rdi = request.getRequestDispatcher("NewExam.jsp?idMonHoc=1");
 			String idMonHoc = request.getParameter("maMonHoc");
 			String idDeThi = request.getParameter("idExam");
 			String[] nameParts = request.getParameterValues("idPart");
@@ -46,15 +45,13 @@ public class AddnewExam {
 			String timeOut = request.getParameter("TimeRe");// is minute time
 			//
 			if (Integer.parseInt(idDeThi) < 0) {
-				out.print("<script>alert('idExam must be > 0')</script>");
-				rdi.include(request, response);
-				return;
+				textResponse = "idExam must be > 0";
+				throw new LectureException("idExam is negative");
 			}
 			int timeOutConvertToInt = Integer.parseInt(timeOut);
 			if (timeOutConvertToInt <= 0) {
-				out.print("<script>alert('time can not <= 0')</script>");
-				rdi.include(request, response);
-				return;
+				textResponse = "time can not <= 0 ";
+				throw new LectureException("time is negative");
 			}
 			timeOutConvertToInt = timeOutConvertToInt * 60;// set to seconds
 			// totalQuizz to add
@@ -66,11 +63,10 @@ public class AddnewExam {
 
 			// update dethi table
 			DeThi d = new DeThi(Integer.parseInt(idDeThi), timeOutConvertToInt + "", totalQuizzs,
-					Integer.parseInt(idMonHoc),DEFAULT_STT_EXAM);
-			if(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi))!=null){
-				out.print("<script>alert('idExam exist!! try again')</script>");
-				rdi.include(request, response);
-				return;
+					Integer.parseInt(idMonHoc), DEFAULT_STT_EXAM);
+			if (deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)) != null) {
+				textResponse = "idExam exist!! try again";
+				throw new LectureException("dupplicate idExam");
 			}
 			deThiDAO.save(d);
 			//
@@ -87,13 +83,14 @@ public class AddnewExam {
 				// database
 				if (rs.isEmpty()) {
 					// no data
-					throw new Exception("NoiDung :" + nameParts[i] + " not exist!");
+					throw new LectureException("NoiDung :" + nameParts[i] + " not exist!");
 				} else {
 					for (CauHoi c : rs) {
 						arQuizz.add(new Quizz(c.getIdCauHoi() + ""));
 					}
 				}
-				if (numberOfPart > rs.size()||numberOfPart<=0) {// read below
+				if (numberOfPart > rs.size() || numberOfPart <= 0) {// read
+																	// below
 					// bank quizz has too littel quizzs
 					List<DeThi_CauHoi> dethi_cauhois = deThi_CauHoiDAO
 							.findByMaDeThi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)));
@@ -105,9 +102,8 @@ public class AddnewExam {
 					if (deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)) != null) {
 						deThiDAO.delete(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)));
 					}
-					out.print("<script>alert('your number quizzs too much or too small')</script>");
-					rdi.include(request, response);
-					return;
+					textResponse = "your number quizzs too much or too small";
+					throw new LectureException("your quizz too much or too small");
 				}
 
 				for (int j = 0; j < numberOfPart; j++) {
@@ -134,19 +130,25 @@ public class AddnewExam {
 					}
 				}
 			}
-			out.print("<script>alert('Success!!')</script>");
-			rdi.include(request, response);
-			return;
+			textResponse = "Success!!";
+			color="green";
 
+		} catch (LectureException e) {
+			logger.error(e.toString());
 		} catch (Exception e) {
-			e.printStackTrace();
-			try {
-				response.sendError(500);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			return;
+			textResponse="Fill up the form!";
+			logger.error(e.toString());
 		}
+		try {
+			response.setCharacterEncoding("utf-8");
+			response.setStatus(HttpServletResponse.SC_OK);
+			response.getWriter().write("<span style='color:"+color+"'>"+textResponse+" TIME: "+new Date().toString()+"</span>");
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return;
 	}
 
 	@Autowired

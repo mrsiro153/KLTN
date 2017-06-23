@@ -38,7 +38,10 @@ NoiDungDAO noiDungDAO;
 		idSubject="1";
 	}
 	Integer idSub = Integer.parseInt(idSubject);
-	//noiDungDAO.findByIdMonHoc(mon)
+	List<NoiDung> nds = noiDungDAO.findByIdMonHoc(monHocDAO.findByidMonHoc(idSub));
+	if(nds.isEmpty()){
+		out.print("<h5>No Part of Exam</h5>");
+	}
 	%>
 	<table class="table">
 		<thead>
@@ -48,7 +51,12 @@ NoiDungDAO noiDungDAO;
      		</tr>
     	</thead>
     	<tbody>
-    		
+    		<%for(NoiDung nd : nds ){ %>
+    			<tr>
+    				<td><%=nd.getIdNoiDung() %></td>
+    				<td><%=nd.getTenNoiDung() %></td>
+    			</tr>
+    		<%} %>
     	</tbody>
 	</table>
 </body>

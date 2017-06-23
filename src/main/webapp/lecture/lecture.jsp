@@ -29,20 +29,26 @@ DeThiDAO deThiDAO;
 	<div id="lectureTableSubject" class="col-md-4">
 		<div style="margin-left:5px">
 			<h4>Add new part to subject</h4>
-			<select class="form-control" onchange="onValueChangeOfSelecboxSubject(this)">
+			<select class="form-control" onchange="onValueChangeOfSelecboxSubject(this)" id="selectBoxChooseSubject">
 				<%for(MonHoc m :rs){ %>
 				<option value="<%=m.getIdMonHoc()%>"><%=m.getTenMonHoc() %></option>
 				<%} %>
 			</select>
+			<form id="formAddNewPartOfSubjet">
+				<div class="form-group">
+    				<label>idPart:</label>
+    				<input type="number" class="form-control" name="idPart" id="idPart" required>
+  				</div>
+  				<div class="form-group">
+    				<label>name Part:</label>
+    				<input type="text" class="form-control" name="namePart" id="namePart" required>
+  				</div>
+			</form>
+			<center><button class="btn btn-success" onclick="submitNewPart()">Save</button></center>
+			<p id="resultOfAddPart"></p>
 			<div id="partsOfSubject">
 			</div>
-			<button class="btn btn-success">Save</button>
 		</div>
-		<center>
-			<button class="btn btn-primary" style="margin-top: 10px;"
-				onclick="window.open('lecture/NewExam.jsp?idMonHoc=1')">Add
-				new Exam</button>
-		</center>
 	</div>
 	<!-- noi dung mon hoc -->
 	<div class="col-md-7 col-md-offset-0 listExam">

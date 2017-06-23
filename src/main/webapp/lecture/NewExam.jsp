@@ -62,6 +62,22 @@ function SelectBoxValue(selectBox){
 	xhttp.open("GET", "AllParts.jsp?idMonHoc="+selectBox.value, true);
 	xhttp.send();
 }
+//
+function submitNewExam() {
+
+    var url = "createNewExam"; // the script where you handle the form input.
+
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: $("#formNewExam").serialize(), // serializes the form's elements.
+           success: function(data)
+           {
+        	   $("#resultOfSubmitNewExam").html(data);
+               //console.log(data);
+           }
+         });
+}
 </script>
 </head>
 <body>
@@ -74,7 +90,7 @@ function SelectBoxValue(selectBox){
 	%>
 	<div class="col-md-8 col-md-offset-2 AddNewExam">
 	<center><h1 style="color:red;">Add a new Exam</h1></center>
-		<form action="createNewExam" method="get" style="margin-top: 30px;">
+		<form action="createNewExam" method="post" style="margin-top: 30px;" id="formNewExam">
 			<div class="col-md-3">
 				<select name="maMonHoc" onchange="SelectBoxValue(this)">
 					<% for(MonHoc m : rs){ %>
@@ -123,9 +139,10 @@ function SelectBoxValue(selectBox){
 				<h2 style="visibility: hidden">ds</h2>
 			</div>
 			<br>
-			<h4 style="color:red; margin-left: 50px;">You have to type all block!!!!</h4>
-			<button class="btn btn-primary btn-block btnSubmit" type="submit">OK</button>
-			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+			<button class="btn btn-primary btn-block btnSubmit" type="submit" id="btnSubmitNewExam" style="display:none;">OK</button>
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /><br/>
+			<button class="btn btn-primary btn-block btnSubmit" type="button" onclick="submitNewExam()">OK</button>
+			<center><div id="resultOfSubmitNewExam"></div></center>
 		</form>
 	</div>
 </body>

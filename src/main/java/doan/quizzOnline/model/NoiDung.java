@@ -17,7 +17,6 @@ import org.hibernate.validator.constraints.NotEmpty;
 public class NoiDung {
 	//
 	@Id
-	@NotEmpty
     @Column(name="idnoidung", nullable=false)
 	Integer idNoiDung;
 	//
