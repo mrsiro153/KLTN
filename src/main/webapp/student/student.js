@@ -61,7 +61,7 @@ function clickmeee() {
 }
 function timeout() {
 	checkAnswer();
-	window.location = ("MainPage.jsp");
+	//window.location = ("MainPage.jsp");
 }
 function addToAnswersheet(radioBtn){
 	var valueBtn=radioBtn.value;//your answer (a b c or d)

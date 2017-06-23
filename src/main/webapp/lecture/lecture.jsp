@@ -27,22 +27,17 @@ DeThiDAO deThiDAO;
 	}
 	%>
 	<div id="lectureTableSubject" class="col-md-4">
-		<table class="table table-hover">
-			<thead>
-				<tr class="info">
-					<th>Subjects</th>
-					<th style="display:none"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<% for(MonHoc m : rs){ %>
-				<tr>
-					<td><%=m.getTenMonHoc() %></td>
-					<td style="display:none"><%=m.getIdMonHoc() %></td>
-				</tr>
+		<div style="margin-left:5px">
+			<h4>Add new part to subject</h4>
+			<select class="form-control" onchange="onValueChangeOfSelecboxSubject(this)">
+				<%for(MonHoc m :rs){ %>
+				<option value="<%=m.getIdMonHoc()%>"><%=m.getTenMonHoc() %></option>
 				<%} %>
-			</tbody>
-		</table>
+			</select>
+			<div id="partsOfSubject">
+			</div>
+			<button class="btn btn-success">Save</button>
+		</div>
 		<center>
 			<button class="btn btn-primary" style="margin-top: 10px;"
 				onclick="window.open('lecture/NewExam.jsp?idMonHoc=1')">Add
