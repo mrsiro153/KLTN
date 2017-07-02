@@ -51,8 +51,8 @@ public class PrintResult {
 			response.setContentType("text/html; charset=UTF-8");
 			String idUser = request.getParameter("idUser");
 			String filePath = request.getServletContext().getRealPath("/student/");
-			String fontArial = request.getServletContext().getRealPath("/font/arial.ttf");
 			filePath = filePath + "/yourExam"+idUser+".pdf";
+			String fontArial = request.getServletContext().getRealPath("/font/arial.ttf");
 			//
 			try {
 //				BaseFont times = BaseFont.createFont("C://Windows//Fonts//Arial.ttf", BaseFont.IDENTITY_H,

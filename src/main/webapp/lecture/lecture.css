@@ -6,7 +6,6 @@ div.lecturemain{
 	background-color: rgba(233,252,252,0.8);
 }
 div.listExam{
-	border: 2px solid red;
 	border-radius:15px;
-	background-color: rgba(233,252,252,0.8);
+	background-color: rgba(153, 255, 51,0.2);
 }

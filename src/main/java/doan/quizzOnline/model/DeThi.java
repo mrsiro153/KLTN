@@ -27,10 +27,10 @@ public class DeThi {
 	@Column(name="socauhoi")
 	Integer soCauHoi;
 	//
-	@Column(name="ngaymodethi")
+	@Column(name="ngaymodethi",nullable=true)
 	Date ngayMoDeThi;
 	//
-	@Column(name="giomodethi")
+	@Column(name="giomodethi",nullable=true)
 	Time gioMoDeThi;
 	//
 	@Column(name="mamonhoc")

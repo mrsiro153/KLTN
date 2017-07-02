@@ -17,4 +17,20 @@ public class LectureException extends RuntimeException{
 		super(message);
 	}
 	
+	public static class NoQuizzsOfPartException extends RuntimeException{
+
+		public NoQuizzsOfPartException(String message) {
+			super(message);
+		}
+
+		@Override
+		public String getMessage() {
+			return super.getMessage();
+		}
+		@Override
+		public String toString() {
+			return super.toString();
+		}
+	}
+	
 }

@@ -35,18 +35,22 @@ public class ManagerEditExam {
 			String[] staus = request.getParameterValues("status");
 
 			for (int i = 0; i < IdExam.length; i++) {
-				if (OpeningDate[i] != "" || OpeningTime[i] != "") {
-					DeThi d = deThiDAO.findByidDeThi(Integer.parseInt(IdExam[i]));
-					if (d != null) {
+				DeThi d = deThiDAO.findByidDeThi(Integer.parseInt(IdExam[i]));
+				if (d != null) {
+					try {
 						d.setNgayMoDeThi(Date.valueOf(OpeningDate[i]));
-						if(OpeningTime[i].length()==5){
-							OpeningTime[i]=OpeningTime[i]+":00";
-						}		
+						if (OpeningTime[i].length() == 5) {
+							OpeningTime[i] = OpeningTime[i] + ":00";
+						}
 						d.setGioMoDeThi(Time.valueOf(OpeningTime[i]));
-						d.setStatus(Integer.parseInt(staus[i]));
+					} catch (Exception e) {
+						logger.error(e.toString());
 					}
-					deThiDAO.save(d);
+					d.setStatus(Integer.parseInt(staus[i]));
+				} else {
+					logger.info("can not find Exam with ID= " + IdExam[i]);
 				}
+				deThiDAO.save(d);
 			}
 			out.println("<script>alert('Success!!')</script>");
 			RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");

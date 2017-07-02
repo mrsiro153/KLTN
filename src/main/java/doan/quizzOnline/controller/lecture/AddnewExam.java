@@ -83,7 +83,8 @@ public class AddnewExam {
 				// database
 				if (rs.isEmpty()) {
 					// no data
-					throw new LectureException("NoiDung :" + nameParts[i] + " not exist!");
+					//mean this part of Subject doesn't have any quizz
+					throw new LectureException.NoQuizzsOfPartException("NoiDung :" + nameParts[i] + " not exist!");
 				} else {
 					for (CauHoi c : rs) {
 						arQuizz.add(new Quizz(c.getIdCauHoi() + ""));
@@ -135,7 +136,10 @@ public class AddnewExam {
 
 		} catch (LectureException e) {
 			logger.error(e.toString());
-		} catch (Exception e) {
+		} catch (LectureException.NoQuizzsOfPartException e) {
+			textResponse="warning, this part doesn't have any quizz";
+			logger.error(e.toString());
+		}catch (Exception e) {
 			textResponse="Fill up the form!";
 			logger.error(e.toString());
 		}
