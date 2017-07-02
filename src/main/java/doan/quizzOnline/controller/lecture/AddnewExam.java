@@ -84,7 +84,19 @@ public class AddnewExam {
 				if (rs.isEmpty()) {
 					// no data
 					//mean this part of Subject doesn't have any quizz
-					throw new LectureException.NoQuizzsOfPartException("NoiDung :" + nameParts[i] + " not exist!");
+					String tenND = noiDungDAO.findByIdNoiDung(Integer.parseInt(nameParts[i])).getTenNoiDung();
+					List<DeThi_CauHoi> dethi_cauhois = deThi_CauHoiDAO
+							.findByMaDeThi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)));
+					if (!dethi_cauhois.isEmpty()) {
+						for (DeThi_CauHoi dc : dethi_cauhois) {
+							deThi_CauHoiDAO.delete(dc);
+						}
+					}
+					if (deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)) != null) {
+						deThiDAO.delete(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)));
+					}
+					textResponse="part: "+tenND+" don't have quizz, can not create Exam\n";
+					throw new LectureException.NoQuizzsOfPartException("NoiDung :" + nameParts[i] + " don't have quizz");
 				} else {
 					for (CauHoi c : rs) {
 						arQuizz.add(new Quizz(c.getIdCauHoi() + ""));
@@ -92,7 +104,7 @@ public class AddnewExam {
 				}
 				if (numberOfPart > rs.size() || numberOfPart <= 0) {// read
 																	// below
-					// bank quizz has too littel quizzs
+					// bank quizz has too little quizzs
 					List<DeThi_CauHoi> dethi_cauhois = deThi_CauHoiDAO
 							.findByMaDeThi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)));
 					if (!dethi_cauhois.isEmpty()) {
@@ -137,7 +149,6 @@ public class AddnewExam {
 		} catch (LectureException e) {
 			logger.error(e.toString());
 		} catch (LectureException.NoQuizzsOfPartException e) {
-			textResponse="warning, this part doesn't have any quizz";
 			logger.error(e.toString());
 		}catch (Exception e) {
 			textResponse="Fill up the form!";
