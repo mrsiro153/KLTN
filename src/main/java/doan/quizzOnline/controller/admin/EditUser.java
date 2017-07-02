@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import doan.quizzOnline.model.QuyenDAO;
 import doan.quizzOnline.model.User;
+import doan.quizzOnline.model.UserDAO;
 import doan.quizzOnline.service.UserService;
 
 @Controller
@@ -42,11 +43,29 @@ public class EditUser {
 			sex = request.getParameter("sex");
 			address = request.getParameter("address");
 			phone = request.getParameter("phone");
-			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			String paEncode = passwordEncoder.encode(pa);
+			//check user exist in database
+			User us = userDAO.findById(id);
+			if(us==null){
+				logger.error("can not find user");
+				throw new Exception("user not exist in database");
+			}
 			//check role, id role exist in database
-			User user = new User(id,name,Date.valueOf(dob),sex,address,phone,paEncode,null);
-			User usTest = userService.saveNewUser(user);
+			us.setHoTen(name);
+			us.setNgaySinh(Date.valueOf(dob));
+			us.setGioiTinh(sex);
+			us.setDiaChi(address);
+			us.setsDT(phone);
+			if(pa.equals("")||pa.equals(null)){	
+				logger.info("user does not change password");
+			}else{
+				logger.info("user change password");
+				BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+				String paEncode = passwordEncoder.encode(pa);
+				us.setPassWord(paEncode);
+			}
+			//User user = new User(id,name,Date.valueOf(dob),sex,address,phone,paEncode,null);
+			
+			User usTest = userService.saveNewUser(us);
 			if(usTest==null){
 				throw new Exception("edit and save user failed!!");
 			}
@@ -66,5 +85,8 @@ public class EditUser {
 	
 	@Autowired
 	QuyenDAO quyenDAO;
+	
+	@Autowired
+	UserDAO userDAO; 
 
 }

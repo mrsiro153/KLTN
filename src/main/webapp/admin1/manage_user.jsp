@@ -89,7 +89,7 @@ UserService userService;
 					<label>ID user</label> 
 					<input class="form-control" id="edtId" type="text" value="dsdsdsdsd" name="id" readonly>
 					<label>Password</label>
-					<input class="form-control" id="edtPa" type="text" value="dsdsdsdsd" name="pa" placeholder="new Password" required>
+					<input class="form-control" id="edtPa" type="text" value="dsdsdsdsd" name="pa" placeholder="new Password" >
 					<label>Name</label>
 					<input class="form-control" id="edtName" type="text" value="Nguyễn Nam" name="name" required> 
 					<label>Date of birth</label> 
