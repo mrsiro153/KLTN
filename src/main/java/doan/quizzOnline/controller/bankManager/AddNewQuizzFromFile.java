@@ -142,7 +142,7 @@ public class AddNewQuizzFromFile {
 				if (outPutNotify.equals("")) {
 					outPutNotify += "Success!!";
 				}
-				out.println("<p style='color:white'>" + outPutNotify + "</p>");
+				out.println("<script>alert('" + outPutNotify + "')</script>");
 				rd.include(request, response);
 				return;
 			}

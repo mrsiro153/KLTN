@@ -44,6 +44,7 @@ public class AddNewUserFromFile {
 	@RequestMapping(value = "/addNewUserByFile", method = RequestMethod.POST)
 	public void Exelfile(HttpServletRequest request, HttpServletResponse response) {
 		logger.info("add user from excel file");
+		String outputNotification = "";
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setCharacterEncoding("utf-8");
@@ -51,10 +52,13 @@ public class AddNewUserFromFile {
 			PrintWriter out = response.getWriter();
 			RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-			String outputNotification = "";
 			Part filePart = request.getPart("file");
 			if (filePart != null) {
 				String filename = filePart.getSubmittedFileName();
+				if(!filename.contains(".xlsx")){
+					outputNotification="only support Excel file";
+					throw new Exception("this is not Excel file");
+				}
 				/*
 				 * if (!filename.contains(".xls")) { System.out.println(
 				 * "do not match type of file"); return; }
@@ -130,14 +134,18 @@ public class AddNewUserFromFile {
 					outputNotification="Success!";
 				}
 
-				out.print("<h5 style='color:white'>" + outputNotification + "</h5>");
-				rd.include(request, response);
+				out.print(outputNotification+" \ntime:"+new Date());
+				//rd.include(request, response);
 				return;
 			}
 		} catch (Exception e) {
 			try {
-				RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
-				rd.forward(request, response);
+				request.setCharacterEncoding("utf-8");
+				response.setCharacterEncoding("utf-8");
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.print(outputNotification +" \ntime:"+new Date());
+				//rd.include(request, response);
 			} catch (Exception ex) {
 
 			}

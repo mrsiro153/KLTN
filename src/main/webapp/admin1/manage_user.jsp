@@ -19,9 +19,9 @@ UserService userService;
 			alert("fdsfs"); 
 		}
 	</script>
-	<form style="margin-top: 15px; margin-left: 10px;" enctype="multipart/form-data" method="post" action="addNewUserByFile">
-      	Add users from file upload: <input type="file" name="file">
-      	<button type="submit" style="margin-top: 5px;" class="btn btn-default">Ok</button>
+	<form style="margin-top: 15px; margin-left: 10px;" enctype="multipart/form-data" method="post" action="addNewUserByFile" id="fromAddUserFromFile">
+      	<p>Add users from file upload: <span id="responseAddFromFile" style="color:blue;"></span></p> <input type="file" name="file">
+      	<button type="button" style="margin-top: 5px;" class="btn btn-default" onclick="submitUserFromFile()">Ok</button>
       	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 	</form>
 	<table class="table table-hover" id="mytable1" style="margin-top: 15px;">
