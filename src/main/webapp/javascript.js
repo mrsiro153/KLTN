@@ -41,3 +41,25 @@ function mouseout(x){
   x.style.color="#ffffff";
 }
 //
+function guidingPage(haha) {
+	  var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+	    if (this.readyState == 4 && this.status == 200) {
+	      document.getElementById("contentGuiding").innerHTML = this.responseText;
+	    }
+	  };
+	  var s="";
+	  if(haha.id.match("adminGuiding")){
+	  		s="guidingfolder/adminGuiding.jsp";
+	  }else if(haha.id.match("studentGuiding")){
+	    s="";
+	  }else if(haha.id.match("lectureGuiding")){
+	    s="";
+	  }else if(haha.id.match("examGuiding")){
+	    s="";
+	  }else if(haha.id.match("quizzGuiding")){
+	    s="";
+	  }
+	  xhttp.open("GET",s, true);
+	  xhttp.send();
+	}
