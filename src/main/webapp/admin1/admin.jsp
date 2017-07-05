@@ -17,5 +17,5 @@
 <a style="font-size: 150%; margin-left:50px; cursor:pointer;" class="tablink" onclick="opentab(event,this)" id="exam">Manage Exam</a>
 <br><br>
 <div id="container1">
-	
+	<jsp:include page="manage_user.jsp"></jsp:include>
 </div>

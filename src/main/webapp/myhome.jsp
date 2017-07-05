@@ -7,7 +7,7 @@
 	<div class="ImgMain col-md-4">
 		<center>
 			<img
-				src="http://tapchianhdep.com/wp-content/uploads/2015/04/nhung-hinh-anh-hai-huoc-sieu-dang-yeu-cua-tre-con-4.jpg"
+				src="http://1.bp.blogspot.com/-agkIFTFXhOg/UbgD4w2VKJI/AAAAAAAACe0/gWZfWQmSCWk/s1600/20-taylor_swift_by_rajacenna.jpg"
 				width="300px" height="300px" class="img-circle" style="margin-top:30px">
 		</center>
 	</div>

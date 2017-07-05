@@ -15,5 +15,5 @@ click <span style="color: red">2</span> you will do the exam equal the row of ta
 <img src="../hinhanh/studentGuidingDoExam3.png" alt="Student Page" >
 <hr>
 <h4 style="color:blue;">if you click "show score" button, you will see the screen below</h4>
-<h4 style="color:blue;">Click print result to print your all exam to pdf file</h4>
+<h4 style="color:blue;">Click <span style="color: red">print result</span> to print your all exam to pdf file</h4>
 <img src="../hinhanh/studentGuidingShowScore.png" alt="Student Page" >

@@ -54,12 +54,17 @@ function guidingPage(haha) {
 	  }else if(haha.id.match("studentGuiding")){
 	    s="guidingfolder/studentGuiding.jsp";
 	  }else if(haha.id.match("lectureGuiding")){
-	    s="";
+	    s="guidingfolder/lectureGuiding.jsp";
 	  }else if(haha.id.match("examGuiding")){
-	    s="";
+	    s="guidingfolder/managerGuiding.jsp";
 	  }else if(haha.id.match("quizzGuiding")){
-	    s="";
+	    s="guidingfolder/quizzGuiding.jsp";
 	  }
 	  xhttp.open("GET",s, true);
 	  xhttp.send();
-	}
+}
+function submitAskQuestion(){
+	document.getElementById("contact-form").innerHTML = "<div style='color:blue'><h1>Thank you for giving me a question</h1>" +
+			"<h3>I will answer you as soon as possible!</h3>"+
+			"<div>";
+}
