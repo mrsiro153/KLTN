@@ -52,7 +52,7 @@ function guidingPage(haha) {
 	  if(haha.id.match("adminGuiding")){
 	  		s="guidingfolder/adminGuiding.jsp";
 	  }else if(haha.id.match("studentGuiding")){
-	    s="";
+	    s="guidingfolder/studentGuiding.jsp";
 	  }else if(haha.id.match("lectureGuiding")){
 	    s="";
 	  }else if(haha.id.match("examGuiding")){

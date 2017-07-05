@@ -36,3 +36,15 @@
   </tr>
 </table>
 <hr>
+<h4 style="color:blue;">This is EditUser form when you click edit of user</h4>
+<img src="../hinhanh/adminGuidingEditUser.png" alt="Admin Page" >
+<h4 style="color:blue;">other functions include add new user and delete user, the form is similar edit user </h4>
+<h4 style="color:blue;">change or insert new information and click save to complete!</h4>
+<hr>
+<h4 style="color:blue;">Manage role screen, it is only show you all role of this app</h4>
+<img src="../hinhanh/adminGuidingRole.png" alt="Admin Page" >
+<hr>
+<h4 style="color:blue;">Show score of Student screen</h4>
+<h4 style="color:blue;">You will chose the exam in <span style="color:red">1 area</span> 
+and you will see score of all students do that Exam in<span style="color:red">2 area</span></h4>
+<img src="../hinhanh/adminGuidingScore.png" alt="Admin Page" >

@@ -170,7 +170,7 @@ UserService userService;
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Add new User</h4>
+				<h4 class="modal-title">Delete User</h4>
 			</div>
 			<div class="modal-body">
 				<!---->
