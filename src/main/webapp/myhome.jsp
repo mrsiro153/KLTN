@@ -7,8 +7,8 @@
 	<div class="ImgMain col-md-4">
 		<center>
 			<img
-				src="http://1.bp.blogspot.com/-agkIFTFXhOg/UbgD4w2VKJI/AAAAAAAACe0/gWZfWQmSCWk/s1600/20-taylor_swift_by_rajacenna.jpg"
-				width="300px" height="300px" class="img-circle" style="margin-top:30px">
+				src="http://images.vov.vn/w600/uploaded/phamhoa/2016_01_27/vu_dai_thang_gjrd.jpg"
+				width="400px" height="400px" class="img-circle" style="margin-top:30px">
 		</center>
 	</div>
 	<div class="InformationUser col-md-6">

@@ -103,7 +103,6 @@ if(session.getAttribute("pre").equals("5")){
 		</ul>
 	</div>
 	<div id="content">
-		<jsp:include page="myhome.jsp"></jsp:include>
 		<!--INSIDE here-->
 	</div>
 </body>

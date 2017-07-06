@@ -101,7 +101,6 @@ function loadExamSubject(selectBox){
 }
 //
 function submitUserFromFile() {
-
     var url = "addNewUserByFile"; // the script where you handle the form input.
     var myForm = $("#fromAddUserFromFile")[0];
     var data = new FormData(myForm);

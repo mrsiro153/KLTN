@@ -20,7 +20,7 @@
 			<div class="login col-md-8">
 				<img src="hinhanh/logo.png" class="col-md-4">
 				<div>
-					<h1 class="cl1">QUIZZ ONLINE</h1><br>
+					<h1 class="cl1">QUIZ ONLINE</h1><br>
 					<p style="font-family: 'Merriweather', serif;">Ho Chi Minh Technical and Education</p>
 					<form class="form-horizontal cl1 col-md-8" action="login" method="post">
 						<div class="col-md-0">

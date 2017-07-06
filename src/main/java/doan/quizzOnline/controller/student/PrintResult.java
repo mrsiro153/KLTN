@@ -3,6 +3,7 @@ package doan.quizzOnline.controller.student;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class PrintResult {
 			String filePath = request.getServletContext().getRealPath("/student/");
 			filePath = filePath + "/yourExam"+idUser+".pdf";
 			String fontArial = request.getServletContext().getRealPath("/font/arial.ttf");
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 			//
 			try {
 //				BaseFont times = BaseFont.createFont("C://Windows//Fonts//Arial.ttf", BaseFont.IDENTITY_H,
@@ -75,7 +77,7 @@ public class PrintResult {
 				preface.add(new Paragraph("Exams Result", redFont));// title
 																	// sentence
 				addEmptyLine(preface, 1);
-				preface.add(new Paragraph("Generate at: " + new Date(), smallBold));
+				preface.add(new Paragraph("Generate at: " + sdf.format(new Date()), smallBold));
 				addEmptyLine(preface, 2);
 				document.add(preface);// add all title
 				addEmptyLine(preface, 2);
@@ -121,27 +123,27 @@ public class PrintResult {
 			} else {
 				PdfPTable table = new PdfPTable(6);
 				//
-				PdfPCell c1 = new PdfPCell(new Phrase("Mã Sinh Viên", myF));
+				PdfPCell c1 = new PdfPCell(new Phrase("StudentID", myF));
 				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 				table.addCell(c1);
 				//
-				c1 = new PdfPCell(new Phrase("Mã đề thi", myF));
+				c1 = new PdfPCell(new Phrase("ExamID", myF));
 				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 				table.addCell(c1);
 				//
-				c1 = new PdfPCell(new Phrase("Ngày mở đề thi", myF));
+				c1 = new PdfPCell(new Phrase("Date", myF));
 				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 				table.addCell(c1);
 				//
-				c1 = new PdfPCell(new Phrase("Giờ Mở đề thi", myF));
+				c1 = new PdfPCell(new Phrase("Time", myF));
 				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 				table.addCell(c1);
 				//
-				c1 = new PdfPCell(new Phrase("Tên môn học", myF));
+				c1 = new PdfPCell(new Phrase("Subject", myF));
 				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 				table.addCell(c1);
 				//
-				c1 = new PdfPCell(new Phrase("Điểm", myF));
+				c1 = new PdfPCell(new Phrase("Score", myF));
 				c1.setHorizontalAlignment(Element.ALIGN_LEFT);
 				table.addCell(c1);
 				//
