@@ -50,7 +50,6 @@ public class AddNewUserFromFile {
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			RequestDispatcher rd = request.getRequestDispatcher("MainPage.jsp");
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			Part filePart = request.getPart("file");
 			if (filePart != null) {

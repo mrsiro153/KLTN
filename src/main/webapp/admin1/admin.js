@@ -99,7 +99,6 @@ function loadExamSubject(selectBox){
 	xhttp.open("GET", "admin1/contentExam.jsp?idExam=" + value, true);
 	xhttp.send();
 }
-//
 function submitUserFromFile() {
     var url = "addNewUserByFile"; // the script where you handle the form input.
     var myForm = $("#fromAddUserFromFile")[0];
@@ -115,7 +114,6 @@ function submitUserFromFile() {
            success: function(data)
            {
         	   $("#responseAddFromFile").html(data);
-               //console.log(data);
            }
          });
 }
