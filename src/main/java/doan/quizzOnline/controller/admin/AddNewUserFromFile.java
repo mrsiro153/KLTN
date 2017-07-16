@@ -1,14 +1,11 @@
 package doan.quizzOnline.controller.admin;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
@@ -92,7 +89,7 @@ public class AddNewUserFromFile {
 								} else {
 									userAdding[iteratorUserAdding] = String.valueOf(cell.getNumericCellValue())
 											.replaceFirst("\\.0+$", "");
-									logger.info(String.valueOf(cell.getNumericCellValue()).replaceFirst("\\.0+$", ""));
+									//logger.info(String.valueOf(cell.getNumericCellValue()).replaceFirst("\\.0+$", ""));
 								}
 								break;
 							}
@@ -117,7 +114,7 @@ public class AddNewUserFromFile {
 										outputNotification += "the user have name: " + userAdding[1] + " is failed \n";
 									}
 								} catch (Exception e) {
-									e.printStackTrace();
+									logger.error(e.toString());
 									outputNotification += "the user have name: " + userAdding[1] + " is failed \n";
 								}
 								iteratorUserAdding = 0;

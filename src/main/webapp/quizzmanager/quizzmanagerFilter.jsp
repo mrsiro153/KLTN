@@ -68,7 +68,7 @@ background-image: url('http://www.w3schools.com/css/searchicon.png');
 		<div class="searchBox" style="margin-top: 10px;">
 			<input type="text" id="myInput" onkeyup="searchQuizzs()" placeholder="Search content quizz" title="Type in a name">
 		</div>
-		<div class="contentQuizz" style="margin-top: 10px;">
+		<div class="contentQuizz" style="margin-top: 10px; max-height: 2000px; overflow: scroll;">
 			<table class="table table-hover" id="tableContentQuizzs">
 				<thead>
 					<tr class="info">
@@ -85,7 +85,12 @@ background-image: url('http://www.w3schools.com/css/searchicon.png');
 				</thead>
 				<tbody>
 					<%
+					System.out.println("So luong cau hoi trong ngan hang de thi: "+cauhois.size());
+					int temp=0;
 						for(CauHoi c:cauhois) {
+							try{
+								System.out.println("temporary: "+temp);
+								temp+=1;
 					%>					
 				<tr>
 					<td><%=c.getIdCauHoi()%></td>
@@ -96,10 +101,15 @@ background-image: url('http://www.w3schools.com/css/searchicon.png');
 					<td><%=c.getChiTietCauHoi().getDapAnC()%></td>
 					<td><%=c.getChiTietCauHoi().getDapAnD()%></td>
 					<td><%=c.getMaNoiDung().getTenNoiDung() %></td>
+					<%System.out.println("id: "+c.getIdCauHoi()+" noidung: "+c.getNoiDungCauHoi()
+					+" dapandung: "+c.getDapAnDung()+" manoidung: "+c.getMaNoiDung().getTenNoiDung()); %>
 					<td style="display:none;"><%=c.getMaNoiDung().getIdNoiDung() %></td>
 					<td><button class="btn btn-primary" data-toggle="modal" data-target="#modalContentQuizz" onclick="changeContentQuizz(this)">Edit</button></td>
 				</tr>			
 			<%
+							}catch(Exception e){
+								System.out.println(e.toString());
+							}
 							};
 						%>
 			</tbody>			

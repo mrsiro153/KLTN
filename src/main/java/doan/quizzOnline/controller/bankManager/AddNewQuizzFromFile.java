@@ -108,7 +108,7 @@ public class AddNewQuizzFromFile {
 								//
 								try {
 									if (quizzs[2].equals("A") || quizzs[2].equals("B") || quizzs[2].equals("C")
-											|| quizzs[2].equals("C")) {// check
+											|| quizzs[2].equals("D")) {// check
 																		// the
 																		// true
 																		// //
