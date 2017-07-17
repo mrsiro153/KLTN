@@ -1,13 +1,10 @@
 package doan.quizzOnline.controller.lecture;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -121,7 +118,7 @@ public class AddnewExam {
 
 				for (int j = 0; j < numberOfPart; j++) {
 					//
-					int thaydoi = 0;// this var is used in the case: random the
+					int thaydoi = -1;// this var is used in the case: random the
 									// exist value
 					int rd = 0 + (int) (Math.random() * ((rs.size() - 1 - 0) + 1));// min=
 																					// 0,
@@ -131,16 +128,22 @@ public class AddnewExam {
 																					// we
 																					// random
 																					// 0->2
-					String sql1 = "INSERT INTO `quizz`.`dethi_cauhoi` (`MaDeThi`, `MaCauHoi`) VALUES ('" + idDeThi
-							+ "', '" + arQuizz.get(rd).getMaCauHoi() + "')";
-					DeThi_CauHoi dc = new DeThi_CauHoi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)),
+					DeThi_CauHoi dt_ch = deThi_CauHoiDAO.findByMaDeThiAndMaCauHoi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)),
 							cauHoiDAO.findByIdCauHoi(Integer.parseInt(arQuizz.get(rd).getMaCauHoi())));
-					while (deThi_CauHoiDAO.save(dc) == null) {// mean update
-																// failed
-						dc = new DeThi_CauHoi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)),
+					//
+					while(dt_ch!=null){
+						thaydoi+=1;
+						dt_ch = deThi_CauHoiDAO.findByMaDeThiAndMaCauHoi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)),
 								cauHoiDAO.findByIdCauHoi(Integer.parseInt(arQuizz.get(thaydoi).getMaCauHoi())));
-						thaydoi += 1;
 					}
+					if(thaydoi==-1){
+						//cau hoi moi, ko trung
+						thaydoi=rd;
+					}
+					logger.info("quizz is: "+thaydoi);
+					DeThi_CauHoi dc = new DeThi_CauHoi(deThiDAO.findByidDeThi(Integer.parseInt(idDeThi)),
+							cauHoiDAO.findByIdCauHoi(Integer.parseInt(arQuizz.get(thaydoi).getMaCauHoi())));
+					deThi_CauHoiDAO.save(dc);
 				}
 			}
 			textResponse = "Success!!";
