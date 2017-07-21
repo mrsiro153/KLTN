@@ -181,3 +181,20 @@ function unloadOrInterrupt(){
 function closeDiemBaiThi(btn) {
 	btn.parentNode.parentNode.style.display="none";
 }
+function moveQuicklyToQuizz(thisQuizz){
+	var contentQuizz = thisQuizz.children;
+	var valueQuizz=contentQuizz[0].innerHTML-1;
+	console.log("length: "+thisQuizz.children.length);
+	console.log("quizz: "+valueQuizz);
+	//
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			document.getElementById("contentQizzes").innerHTML = this.responseText;
+		}
+	};
+	//
+	xhttp.open("GET", "student/newQuizz.jsp?currentQuizz="
+			+ valueQuizz, true);
+	xhttp.send();
+}

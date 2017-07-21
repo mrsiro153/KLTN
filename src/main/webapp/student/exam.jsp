@@ -124,7 +124,7 @@ DeThiDAO deThiDAO;
 					</thead>
 					<tbody>
 					<%for(int j=0;j<arQuizz.size();j++){ %>
-						<tr>
+						<tr onclick="moveQuicklyToQuizz(this)" style="cursor: pointer;">
 							<td><%=j+1%></td>
 							<td><%=arQuizz.get(j).getNoiDung() %></td>
 							<td><%
